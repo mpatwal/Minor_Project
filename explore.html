@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore PGs - RentHive</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: linear-gradient(135deg, #17a2b8, #0056b3);
+      }
+
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      /* Header */
+      h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #0056b3;
+      }
+
+      /* Search Bar */
+      .search-container {
+        display: flex;
+        gap: 10px;
+      }
+
+      .search-container input {
+        flex-grow: 1;
+        border: 2px solid #17a2b8;
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      .search-container button {
+        background: #17a2b8;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+      }
+
+      .search-container button:hover {
+        background: #0056b3;
+      }
+
+      /* Filters */
+      .filters {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .filters select {
+        flex-grow: 1;
+        border: 2px solid #17a2b8;
+        border-radius: 8px;
+        padding: 8px;
+      }
+
+      .filters button {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+      }
+
+      .filters button:hover {
+        background: #218838;
+      }
+
+      /* PG Cards */
+      .card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .card img {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-body {
+        text-align: center;
+      }
+
+      .card-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #0056b3;
+      }
+
+      .card-text {
+        font-size: 1rem;
+        color: #555;
+      }
+
+      .card .btn {
+        background: #17a2b8;
+        border: none;
+        transition: 0.3s ease-in-out;
+      }
+
+      .card .btn:hover {
+        background: #0056b3;
+      }
+
+      /* Footer */
+      footer {
+        background: #222;
+        color: #ddd;
+        font-size: 0.9rem;
+        padding: 15px;
+      }
+
+      footer:hover {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md bg-info shadow-lg navbar-light">
+      <div class="container-fluid">
+        <a href="#" class="navbar-brand text-white">PG Accommodation</a>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Explore PG Accommodations</h2>
+
+      <!-- Search Bar -->
+      <div class="search-container mb-4">
+        <input
+          type="text"
+          class="form-control"
+          id="searchInput"
+          placeholder="Search by location..."
+        />
+        <button class="btn btn-primary" onclick="searchPGs()">Search</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters mb-4 d-flex justify-content-between">
+        <select class="form-select" id="budgetFilter">
+          <option value="">Budget</option>
+          <option value="5000-10000">₹5,000 - ₹10,000</option>
+          <option value="10000-15000">₹10,000 - ₹15,000</option>
+        </select>
+        <select class="form-select" id="genderFilter">
+          <option value="">Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Unisex">Unisex</option>
+        </select>
+        <button class="btn btn-success" onclick="applyFilters()">
+          Apply Filters
+        </button>
+      </div>
+
+      <!-- PG Listings -->
+      <div class="row" id="pgList">
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="pg_1.webp" class="card-img-top" alt="PG Image" />
+            <div class="card-body">
+              <h5 class="card-title">Montreal House</h5>
+              <p class="card-text">
+                Location: Karol Bagh, 0.2 km from Metro Station
+              </p>
+              <p class="card-text">Starts from ₹16,899/mo*</p>
+              <a href="schedule_visit.html" class="btn btn-primary"
+                >Schedule a Visit</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="pg_2.webp" class="card-img-top" alt="PG Image" />
+            <div class="card-body">
+              <h5 class="card-title">Elite Residency</h5>
+              <p class="card-text">Location: North Campus, near Kamla Market</p>
+              <p class="card-text">Starts from ₹14,500/mo*</p>
+              <a href="schedule_visit.html" class="btn btn-primary"
+                >Schedule a Visit</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="index.html">Back to Home</a>
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+      &copy; 2025 RentHive. All rights reserved.
+    </footer>
+
+    <script>
+      // Sample PG Data
+      const pgData = [
+        {
+          name: "Montreal House",
+          location: "Karol Bagh",
+          budget: "high",
+          gender: "unisex",
+        },
+        {
+          name: "Elite Residency",
+          location: "North Campus",
+          budget: "medium",
+          gender: "male",
+        },
+        {
+          name: "Sunrise PG",
+          location: "South Delhi",
+          budget: "low",
+          gender: "female",
+        },
+        {
+          name: "Metro PG",
+          location: "Karol Bagh",
+          budget: "medium",
+          gender: "male",
+        },
+        {
+          name: "City View PG",
+          location: "North Campus",
+          budget: "low",
+          gender: "unisex",
+        },
+      ];
+
+      function showPGs() {
+        const locationInput = document
+          .getElementById("location")
+          .value.toLowerCase();
+        const pgContainer = document.getElementById("pgContainer");
+        const pgList = document.getElementById("pgList");
+
+        // Clear previous results
+        pgList.innerHTML = "";
+
+        if (locationInput.length < 3) {
+          pgContainer.style.display = "none";
+          return;
+        }
+
+        const filteredPGs = pgData.filter((pg) =>
+          pg.location.toLowerCase().includes(locationInput)
+        );
+
+        if (filteredPGs.length > 0) {
+          pgContainer.style.display = "block";
+          filteredPGs.forEach((pg) => {
+            const pgDiv = document.createElement("div");
+            pgDiv.classList.add("pg");
+            pgDiv.innerHTML = `<strong>${pg.name}</strong> - ${
+              pg.location
+            } - ₹${
+              pg.budget === "low"
+                ? "5,000-10,000"
+                : pg.budget === "medium"
+                ? "10,000-15,000"
+                : "15,000+"
+            } (${pg.gender})`;
+            pgList.appendChild(pgDiv);
+          });
+        } else {
+          pgContainer.style.display = "none";
+        }
+      }
+
+      function filterPGs() {
+        const budgetFilter = document.getElementById("budget").value;
+        const genderFilter = document.getElementById("gender").value;
+
+        const pgList = document.getElementById("pgList");
+        const pgContainer = document.getElementById("pgContainer");
+
+        const allPGs = document.querySelectorAll(".pg");
+        let hasResults = false;
+
+        allPGs.forEach((pg) => {
+          const text = pg.innerText.toLowerCase();
+          const matchesBudget = !budgetFilter || text.includes(budgetFilter);
+          const matchesGender = !genderFilter || text.includes(genderFilter);
+
+          if (matchesBudget && matchesGender) {
+            pg.style.display = "block";
+            hasResults = true;
+          } else {
+            pg.style.display = "none";
+          }
+        });
+
+        pgContainer.style.display = hasResults ? "block" : "none";
+      }
+    </script>
+  </body>
+</html>
