@@ -6,24 +6,78 @@
     <title>PG Amenities</title>
     <style>
       /* General Styles */
+      
       body {
-        font-family: "Poppins", sans-serif;
         background-color: #f8f9fa;
         color: #333;
-        margin: 0;
         padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: 'Courier New', Courier, monospace;
       }
 
-      /* Header */
-      header {
-        background: linear-gradient(135deg, #007bff, #6610f2);
-        color: white;
-        text-align: center;
-        padding: 20px;
-        font-size: 1.8rem;
-        font-weight: bold;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      }
+      nav{
+    background: #007bff;
+    padding: 10px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+
+
+.btn{
+    background: white;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.4s;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 2px;
+    border-radius: 10px;
+
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+
+}
+.sub-menu-link p{
+    width: 100%;
+
+}
+.sub-menu-link span{
+    font-size: 20px;
+    transition: 0.4s;
+}
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+
+  
 
       /* Amenities Section */
       .amenities-container {
@@ -65,12 +119,61 @@
         font-size: 1rem;
         color: #555;
       }
+    .log{
+    font-weight: bold;
+    font-size: 25px;
+    display: flex;
+}
     </style>
   </head>
   <body>
-    <header>
-      <h1>PG Amenities</h1>
-    </header>
+    <div class="logo-profile">
+      <nav>
+              <div class="log">PG Accommodation</div>
+          <ul>
+              <a href="#" class="btn" onclick="togglemenu()">Dropdown</a> </ul>
+              <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                      <a href="signup.html" class="sub-menu-link">
+                          <img src="#" alt="">
+                          <p>Sign-up/Login</p>
+                          <span>></span>
+                      </a>
+                      <a href="comp.html" class="sub-menu-link">
+                          <img src="#" alt="">
+                          <p>Edit Profile</p>
+                          <span>></span>
+                      </a>
+                      <a href="compal.html" class="sub-menu-link">
+                          <img src="#" alt="">
+                          <p>Complaints</p>
+                          <span>></span>
+                      </a>
+                      <a href="explore.html" class="sub-menu-link">
+                        <p>Explore</p>
+                        <span>></span>
+                    </a>
+                    <a href="amenities.html" class="sub-menu-link">
+            
+                      <p>Amenities</p>
+                      <span>></span>
+                  </a>
+                  <a href="review.html" class="sub-menu-link">
+                    <img src="#" alt="">
+                    <p>Review</p>
+                    <span>></span>
+                </a>
+                  <a href="index.html" class="sub-menu-link">
+                          
+                          <button>Logout</button>
+                          
+                      </a>
+                      </div>
+                  </div>
+              </div>
+          </nav>
+      </div>
+      
 
     <section class="amenities-container">
       <div class="amenity">
@@ -106,5 +209,10 @@
       <br /><br />
       <a href="index.html">Back To Home</a>
     </section>
+    <script>
+      function togglemenu(){
+    subMenu.classList.toggle("open-menu");
+}
+    </script>
   </body>
 </html>

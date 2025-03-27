@@ -11,24 +11,80 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
 
     <style>
-      /* General Styles */
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #f4f4f9;
+      body{
+        background-color: #f8f9fa;
         color: #333;
-        margin: 0;
         padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        font-family: 'Courier New', Courier, monospace;
       }
+      nav{
+        background: #007bff;
+        padding: 10px 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .btn{
+         background: white;
+         color: #007bff;
+         padding: 5px 10px;
+         border-radius: 5px;
+      }
+      .sub-menu-wrap{
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 320px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.4s;
+      }
+      .sub-menu-wrap.open-menu{
+        max-height: 400px;
+      }
+      .sub-menu{
+        background: #fff;
+        padding: 20px;
+        margin: 2px;
+        border-radius: 10px;
+      }
+      .sub-menu-link{
+       display: flex;
+       align-items: center;
+       text-decoration: none;
+       color: #525252;
+       margin: 12px 0;
+      }
+      .sub-menu-link p{
+       width: 100%;
+      }
+      .sub-menu-link span{
+       font-size: 20px;
+       transition: 0.4s;
+      }
+      .sub-menu-link:hover span{
+        transform: translateX(5px);
+      }
+      .sub-menu-link:hover p{
+        font-weight: 600;
+      }
+     .log{
+       font-weight: bold;
+       font-size: 25px;
+       display: flex;
+     }
 
-      /* Navbar */
-      .navbar {
-        background: linear-gradient(135deg, #17a2b8, #0056b3);
-      }
 
-      .navbar-brand {
-        font-size: 1.8rem;
-        font-weight: bold;
-      }
+
+      
+
+
+      
 
       /* Header */
       h2 {
@@ -146,11 +202,43 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md bg-info shadow-lg navbar-light">
-      <div class="container-fluid">
-        <a href="#" class="navbar-brand text-white">PG Accommodation</a>
+    <div class="logo-profile">
+      <nav>
+          <div class="log">PG Accommodation</div>
+          <ul>
+              <a href="#" class="btn" onclick="togglemenu()">Dropdown</a> </ul>
+              <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                      <a href="signup.html" class="sub-menu-link">
+                          <img src="#" alt="">
+                          <p>Sign-up/Login</p>
+                          <span>></span>
+                      </a>
+                      <a href="explore.html" class="sub-menu-link">
+                        <p>Explore</p>
+                        <span>></span>
+                    </a>
+                    <a href="amenities.html" class="sub-menu-link">
+            
+                      <p>Amenities</p>
+                      <span>></span>
+                  </a>
+                  <a href="review.html" class="sub-menu-link">
+                    <img src="#" alt="">
+                    <p>Review</p>
+                    <span>></span>
+                </a>
+                  <a href="index.html" class="sub-menu-link">
+                          
+                          <button>Logout</button>
+                          
+                      </a>
+                      </div>
+                  </div>
+              </div>
+          </nav>
       </div>
-    </nav>
+     
 
     <div class="container mt-5">
       <h2 class="text-center mb-4">Explore PG Accommodations</h2>
@@ -322,6 +410,9 @@
 
         pgContainer.style.display = hasResults ? "block" : "none";
       }
+      function togglemenu(){
+    subMenu.classList.toggle("open-menu");
+  }
     </script>
   </body>
 </html>
