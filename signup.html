@@ -13,28 +13,24 @@
      <!--start js link-->
      <script src="js/bootstrap.js"></script>
      <script src="js/sweetalert.js"></script>
-     <script src="index.js"></script>
+     <script src="js/index.js"></script>
      <!--end js link-->
     <title>signup</title>
-
-
-
-
-</head>
+ </head>
 <body>
     <div class="outer-box">
         <div class="inner-box">
             <header class="SIGNUP" id="signup">
                 <h1> SIGNUP</h1>
                 <main class="signup-body">
-                    <form action="signup.html">
+                    <form action="signup.html" id="signup-form" >
                         <p>
                             <label for="FirstNmane"> First Name </label>
-                            <input type="text" id="fullname" required>
+                            <input type="text" id="firstname" required>
                         </p>
                         <p>
                             <label for="LasttNmane"> Last Name </label>
-                            <input type="text" id="fullname" required>
+                            <input type="text" id="lastname" required>
                         </p>
                         <p>
                             <label for="email">Your Email </label>
@@ -48,8 +44,7 @@
                         <p>
                             <button class="subbtn" type="submit" id="submit" onclick="alert('verification code is successfully sent to your email !')"> Create Account </button>
                         </p>
-                    </form>
-                        
+                    </form>   
                 </main>
                 <footer class="signup-footer">
                     <p> Already have an Account ? <a href="login.html">Login</a></p>
@@ -60,10 +55,47 @@
         <div class="circle c1"></div>
         <div class="circle c2"></div>
     </div>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent normal form submission
+
+            // Get form values
+            const firstName = document.getElementById('firstname').value;
+            const lastName = document.getElementById('lastname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Create the request payload
+            const payload = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password
+            };
+
+            // Send the request to the backend
+            fetch('http://localhost:8086/api/signup', {
+                method: 'POST',
+                mode: "cors",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Verification code is successfully sent to your email!');
+                } else {
+                    alert('Signup failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+        </script>
 </body>
-
-
-
-
-</script>
 </html>
