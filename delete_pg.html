@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete PG</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        margin: 0;
+      }
+      .form-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 350px;
+        position: relative;
+      }
+      .close-btn {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: #ff4b5c;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, background 0.3s;
+      }
+      .close-btn:hover {
+        transform: rotate(90deg) scale(1.1);
+        background: #28a745;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        margin: 12px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #ff4b5c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #c82333;
+        transform: scale(1.05);
+      }
+      #message {
+        margin-top: 12px;
+        color: red;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <button class="close-btn" onclick="closePage()">&times;</button>
+      <h2>Delete PG</h2>
+      <input type="text" id="pgName" placeholder="Enter PG Name to Delete" />
+      <button onclick="deletePG()">Delete PG</button>
+      <p id="message"></p>
+    </div>
+
+    <script>
+      function deletePG() {
+        let pgName = document.getElementById("pgName").value;
+        let pgList = JSON.parse(localStorage.getItem("pgs")) || [];
+
+        let filteredPGs = pgList.filter((pg) => pg.name !== pgName);
+
+        if (pgList.length === filteredPGs.length) {
+          document.getElementById("message").innerText = "PG not found!";
+          return;
+        }
+
+        localStorage.setItem("pgs", JSON.stringify(filteredPGs));
+        document.getElementById("message").innerText =
+          "PG deleted successfully!";
+      }
+
+      function closePage() {
+        window.location.href = "owner.html";
+      }
+    </script>
+  </body>
+</html>
