@@ -1,57 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--start css link-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <!--end css link-->
-
-    <!--start js link-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/animate.css" />
     <script src="js/bootstrap.js"></script>
     <script src="js/sweetalert.js"></script>
-    <!--end js link-->
-    <title>login</title>
-</head>
-<body>
+    <title>Login</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background: white;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      select:focus {
+        border-color: #1e88e5;
+        outline: none;
+        box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
+      }
+    </style>
+  </head>
+  <body>
     <div class="outer-box">
-        <div class="login-box">
-            <header class="SIGNUP" id="login">
-                <h1> Login</h1>
-                <main class="signup-body">
-                    <form action="login.html">
-                        <p>
-                            <label for="email">Your Email </label>
-                            <input type="text" id="email" required>
-                        </p>
-                        <p>
-                            <label for="password">Password  </label>
-                            <input type="password" id="password" placeholder="at least 8 characters" required>
-                        </p>
-                        <p>
-                            <input type="submit" id="submit" value="Login" >
-                        </p>
-                    </form> 
-                </main>
-                <footer class="signup-footer">
-                    <p> New Registration ? <a href="signup.html">SIGNUP</a></p>
-                    <p> <a href="index.html">Back to home</a></p>
-
-                </footer>
-            </header>
-        </div>
-        <div class="circle c1"></div>
-        <div class="circle c2"></div>
+      <div class="login-box">
+        <header class="SIGNUP" id="login">
+          <h1>Login</h1>
+          <main class="signup-body">
+            <form id="loginForm">
+              <p>
+                <label for="userType">Login as:</label>
+                <select id="userType" onchange="toggleFields()">
+                  <option value="user">User</option>
+                  <option value="owner">Owner</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </p>
+              <p id="ownerIdField" class="hidden">
+                <label for="ownerId">Owner ID</label>
+                <input type="text" id="ownerId" />
+              </p>
+              <p id="emailField">
+                <label for="email">Your Email</label>
+                <input type="text" id="email" required />
+              </p>
+              <p>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="at least 8 characters"
+                  required
+                />
+              </p>
+              <p>
+                <input
+                  type="button"
+                  id="submit"
+                  value="Login"
+                  onclick="handleLogin()"
+                />
+              </p>
+            </form>
+          </main>
+          <footer class="signup-footer">
+            <p>New Registration? <a href="signup.html">SIGNUP</a></p>
+            <p><a href="index.html">Back to home</a></p>
+          </footer>
+        </header>
+      </div>
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
     </div>
-</body>
+
+    <script>
+      if (!localStorage.getItem("owners")) {
+        let owners = [
+          { ownerId: "mona", password: "123" },
+          { ownerId: "OWNER456", password: "securepass" },
+        ];
+        localStorage.setItem("owners", JSON.stringify(owners));
+      }
+
+      function toggleFields() {
+        const userType = document.getElementById("userType").value;
+        document
+          .getElementById("ownerIdField")
+          .classList.toggle("hidden", userType !== "owner");
+        document
+          .getElementById("emailField")
+          .classList.toggle("hidden", userType === "owner");
+      }
+
+      function handleLogin() {
+        const userType = document.getElementById("userType").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const ownerId = document.getElementById("ownerId").value;
+
+        if (userType === "owner") {
+          if (ownerId.trim() === "" || password.trim() === "") {
+            alert("Please enter both Owner ID and Password.");
+            return;
+          }
+
+          let owners = JSON.parse(localStorage.getItem("owners")) || [];
+          let validOwner = owners.find(
+            (owner) => owner.ownerId === ownerId && owner.password === password
+          );
+
+          if (!validOwner) {
+            alert("Invalid Owner ID or Password!");
+            return;
+          }
+
+          window.location.href = "owner.html";
+        } else if (userType === "admin") {
+          window.location.href = "admin.html";
+        } else {
+          window.location.href = "dashboard.html";
+        }
+      }
+    </script>
+  </body>
 </html>
-
-
-
-
-
