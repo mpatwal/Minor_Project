@@ -3,99 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!--start css link-->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-     <link rel="stylesheet" href="css/index.css">
-     <link rel="stylesheet" href="css/bootstrap.css">
-     <link rel="stylesheet" href="css/animate.css">
-     <!--end css link-->
- 
-     <!--start js link-->
-     <script src="js/bootstrap.js"></script>
-     <script src="js/sweetalert.js"></script>
-     <script src="js/index.js"></script>
-     <!--end js link-->
-    <title>signup</title>
- </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <script src="js/bootstrap.js"></script>
+    <script src="js/sweetalert.js"></script>
+    <script src="js/index.js"></script>
+    <title>Signup</title>
+</head>
 <body>
     <div class="outer-box">
         <div class="inner-box">
-            <header class="SIGNUP" id="signup">
-                <h1> SIGNUP</h1>
+            <header class="SIGNUP">
+                <h1>SIGNUP</h1>
                 <main class="signup-body">
-                    <form action="signup.html" id="signup-form" >
+                    <form id="signup-form">
                         <p>
-                            <label for="FirstNmane"> First Name </label>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" required>
+                        </p>
+                        <p>
+                            <label for="firstname">First Name</label>
                             <input type="text" id="firstname" required>
                         </p>
                         <p>
-                            <label for="LasttNmane"> Last Name </label>
+                            <label for="lastname">Last Name</label>
                             <input type="text" id="lastname" required>
                         </p>
                         <p>
-                            <label for="email">Your Email </label>
+                            <label for="email">Your Email</label>
                             <input type="email" id="email" required>
                         </p>
                         <p>
-                            <label for="password">Password  </label>
-                            <input type="password" id="password" placeholder="at least 8 characters" required>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="At least 8 characters" required>
                         </p>
-                        <br>
                         <p>
-                            <button class="subbtn" type="submit" id="submit" onclick="alert('verification code is successfully sent to your email !')"> Create Account </button>
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </p>
+                        <p>
+                            <label for="role">Select Role</label>
+                            <select id="role" required>
+                                <option value="">-- Select Role --</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="owner">Owner</option>
+                            </select>
+                        </p>
+                        <p>
+                            <button class="subbtn" type="submit" id="submit">Create Account</button>
                         </p>
                     </form>   
                 </main>
                 <footer class="signup-footer">
-                    <p> Already have an Account ? <a href="login.html">Login</a></p>
-                    <p> <a href="index.html">Back to home</a></p>
+                    <p>Already have an account? <a href="login.html">Login</a></p>
+                    <p><a href="index.html">Back to home</a></p>
                 </footer>
             </header>
         </div>
         <div class="circle c1"></div>
         <div class="circle c2"></div>
     </div>
+
     <script>
-        document.getElementById('signup-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent normal form submission
+document.getElementById('signup-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-            // Get form values
-            const firstName = document.getElementById('firstname').value;
-            const lastName = document.getElementById('lastname').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value.trim();
+    const firstName = document.getElementById('firstname').value.trim();
+    const lastName = document.getElementById('lastname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const role = document.getElementById('role').value;
+    const submitBtn = document.getElementById('submit');
 
-            // Create the request payload
-            const payload = {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: password
-            };
+    // Validate username
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    if (!usernameRegex.test(username)) {
+        swal("Invalid Username", "Username can only contain letters, numbers, and underscores.", "error");
+        return;
+    }
 
-            // Send the request to the backend
-            fetch('http://localhost:8086/api/signup', {
-                method: 'POST',
-                mode: "cors",
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Verification code is successfully sent to your email!');
-                } else {
-                    alert('Signup failed: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        swal("Invalid Email", "Please enter a valid email address!", "error");
+        return;
+    }
+
+    // Validate password strength
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        swal("Weak Password", "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.", "error");
+        return;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+        swal("Invalid Phone", "Please enter a valid 10-digit phone number.", "error");
+        return;
+    }
+
+    // Validate role selection
+    if (!role) {
+        swal("Role Required", "Please select a role before proceeding.", "error");
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Processing...";
+    
+
+    const payload = { username, firstName, lastName, email, password, phoneNumber: phone, role };
+
+    try {
+        const response = await fetch('http://localhost:8086/auth/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
         });
-        </script>
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+            swal("Success!", "Verification code sent to your email!", "success")
+                .then(() => window.location.href = "verify.html");
+        } else {
+            swal("Signup Failed", data.message || "Unknown error", "error");
+        }
+    } catch (error) {
+        swal("Error", "Something went wrong. Please try again.", "error");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Create Account";
+    }
+});
+    </script>
 </body>
 </html>
