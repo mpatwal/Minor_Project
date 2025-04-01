@@ -130,7 +130,7 @@ document.getElementById('signup-form').addEventListener('submit', async function
         const data = await response.json();
         if (response.ok && data.success) {
             swal("Success!", "Verification code sent to your email!", "success")
-                .then(() => window.location.href = "verify.html");
+                .then(() => window.location.href = "index.html");
         } else {
             swal("Signup Failed", data.message || "Unknown error", "error");
         }
