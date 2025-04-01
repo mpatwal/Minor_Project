@@ -94,13 +94,6 @@ document.getElementById('signup-form').addEventListener('submit', async function
         return;
     }
 
-    // Validate password strength
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(password)) {
-        swal("Weak Password", "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.", "error");
-        return;
-    }
-
     // Validate phone number
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phone)) {
