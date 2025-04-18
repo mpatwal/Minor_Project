@@ -120,11 +120,15 @@ document.getElementById('signup-form').addEventListener('submit', async function
             body: JSON.stringify(payload),
         });
         const data = await response.json();
-        console.log(data);
-        if (response.ok && data.success) {
-            swal("Success!", "Verification code sent to your email!", "success")
-                .then(() => window.location.href = "index.html");
-        } else {
+        if (response.ok) {  
+             localStorage.setItem('authToken', data.token || "");  
+             localStorage.setItem('user', JSON.stringify(data.user || {}));  
+             console.log("Redirecting to home.html...");
+             swal("Success!", "Account created successfully!", "success")
+            .then(() => window.location.href = "home.html");
+            }
+  // 🔹 Redirect to home page
+        else {
             swal("Signup Failed", data.message || "Unknown error", "error");
         }
     } catch (error) {

@@ -1,139 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="css/animate.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
     <script src="js/bootstrap.js"></script>
     <script src="js/sweetalert.js"></script>
+    <script src="js/index.js"></script>
     <title>Login</title>
-    <style>
-      .hidden {
-        display: none;
-      }
-      select {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        font-size: 16px;
-        background: white;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-      select:focus {
-        border-color: #1e88e5;
-        outline: none;
-        box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
-      }
-    </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="outer-box">
-      <div class="login-box">
-        <header class="SIGNUP" id="login">
-          <h1>Login</h1>
-          <main class="signup-body">
-            <form id="loginForm">
-              <p>
-                <label for="userType">Login as:</label>
-                <select id="userType" onchange="toggleFields()">
-                  <option value="user">User</option>
-                  <option value="owner">Owner</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </p>
-              <p id="ownerIdField" class="hidden">
-                <label for="ownerId">Owner ID</label>
-                <input type="text" id="ownerId" />
-              </p>
-              <p id="emailField">
-                <label for="email">Your Email</label>
-                <input type="text" id="email" required />
-              </p>
-              <p>
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="at least 8 characters"
-                  required
-                />
-              </p>
-              <p>
-                <input
-                  type="button"
-                  id="submit"
-                  value="Login"
-                  onclick="handleLogin()"
-                />
-              </p>
-            </form>
-          </main>
-          <footer class="signup-footer">
-            <p>New Registration? <a href="signup.html">SIGNUP</a></p>
-            <p><a href="index.html">Back to home</a></p>
-          </footer>
-        </header>
-      </div>
-      <div class="circle c1"></div>
-      <div class="circle c2"></div>
+        <div class="inner-box">
+            <header class="SIGNUP">
+                <h1>LOGIN</h1>
+                <main class="signup-body">
+                    <form id="login-form">
+                        <p>
+                            <label for="userType">Login as:</label>
+                            <select id="userType" required>
+                                <option value="user">User</option>
+                                <option value="owner">Owner</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </p>
+                        <p id="emailField">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" required>
+                        </p>
+                        <p>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="At least 8 characters" required>
+                        </p>
+                        <p>
+                            <button class="subbtn" type="submit" id="submit">Login</button>
+                        </p>
+                    </form>   
+                </main>
+                <footer class="signup-footer">
+                    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                    <p><a href="index.html">Back to home</a></p>
+                </footer>
+            </header>
+        </div>
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
     </div>
 
     <script>
-      if (!localStorage.getItem("owners")) {
-        let owners = [
-          { ownerId: "mona", password: "123" },
-          { ownerId: "OWNER456", password: "securepass" },
-        ];
-        localStorage.setItem("owners", JSON.stringify(owners));
-      }
+        document.getElementById('login-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
 
-      function toggleFields() {
-        const userType = document.getElementById("userType").value;
-        document
-          .getElementById("ownerIdField")
-          .classList.toggle("hidden", userType !== "owner");
-        document
-          .getElementById("emailField")
-          .classList.toggle("hidden", userType === "owner");
-      }
+            const userType = document.getElementById('userType').value;
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const submitBtn = document.getElementById('submit');
 
-      function handleLogin() {
-        const userType = document.getElementById("userType").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const ownerId = document.getElementById("ownerId").value;
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                swal("Invalid Email", "Please enter a valid email address!", "error");
+                return;
+            }
 
-        if (userType === "owner") {
-          if (ownerId.trim() === "" || password.trim() === "") {
-            alert("Please enter both Owner ID and Password.");
-            return;
-          }
+            // Validate password length
+            if (password.length < 8) {
+                swal("Invalid Password", "Password must be at least 8 characters!", "error");
+                return;
+            }
 
-          let owners = JSON.parse(localStorage.getItem("owners")) || [];
-          let validOwner = owners.find(
-            (owner) => owner.ownerId === ownerId && owner.password === password
-          );
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Processing...";
 
-          if (!validOwner) {
-            alert("Invalid Owner ID or Password!");
-            return;
-          }
+            const payload = { email, password };
 
-          window.location.href = "owner.html";
-        } else if (userType === "admin") {
-          window.location.href = "admin.html";
-        } else {
-          window.location.href = "index.html";
-        }
-      }
+            try {
+                const response = await fetch('http://localhost:8086/auth/generateToken', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                let data;
+                   try {
+                      data = await response.json();
+                   } catch {
+                      data = {};
+                   }
+
+                 if (response.ok) {
+                     localStorage.setItem('authToken', data.token);  // Save token in localStorage
+                 if (userType === 'owner') {
+                          localStorage.setItem('ownerId', data.ownerId); // Store the ownerId
+                  }
+
+                    swal("Success!", "Login successful!", "success").then(() => {
+                        if (userType === 'owner') {
+                            window.location.href = "owner.html";
+                        } else if (userType === 'admin') {
+                            window.location.href = "admin-dashboard.html";
+                        } else {
+                            window.location.href = "home.html";
+                        }
+                    });
+                } else {
+                    swal("Login Failed", "Invalid credentials", "error");
+                }
+            } catch (error) {
+                console.error(error);
+                swal("Error", "Something went wrong. Please try again.", "error");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Login";
+            }
+        });
     </script>
-  </body>
+</body>
 </html>

@@ -10,218 +10,224 @@
     />
     <link rel="stylesheet" href="css/bootstrap.css" />
 
-    <style>
-      body{
-        background-color: #f8f9fa;
-        color: #333;
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        border: none;
-        outline: none;
-        font-family: 'Courier New', Courier, monospace;
-      }
-      nav{
-        background: #007bff;
-        padding: 10px 10%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: relative;
-      }
-      .btn{
-         background: white;
-         color: #007bff;
-         padding: 5px 10px;
-         border-radius: 5px;
-      }
-      .sub-menu-wrap{
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 320px;
-        max-height: 0px;
-        overflow: hidden;
-        transition: max-height 0.4s;
-      }
-      .sub-menu-wrap.open-menu{
-        max-height: 400px;
-      }
-      .sub-menu{
-        background: #fff;
-        padding: 20px;
-        margin: 2px;
-        border-radius: 10px;
-      }
-      .sub-menu-link{
-       display: flex;
-       align-items: center;
-       text-decoration: none;
-       color: #525252;
-       margin: 12px 0;
-      }
-      .sub-menu-link p{
-       width: 100%;
-      }
-      .sub-menu-link span{
-       font-size: 20px;
-       transition: 0.4s;
-      }
-      .sub-menu-link:hover span{
-        transform: translateX(5px);
-      }
-      .sub-menu-link:hover p{
-        font-weight: 600;
-      }
-     .log{
-       font-weight: bold;
-       font-size: 25px;
-       display: flex;
-     }
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<style>
+  * {
+    box-sizing: border-box;
+  }
 
+  body {
+    background-color: #f2f5f9;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
 
-      
+  nav {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
 
+  .log {
+    font-weight: 600;
+    font-size: 26px;
+    color: #007bff;
+  }
 
-      
+  .btn {
+    background: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
 
-      /* Header */
-      h2 {
-        font-size: 2rem;
-        font-weight: 600;
-        color: #0056b3;
-      }
+  .btn:hover {
+    background: #0056b3;
+  }
 
-      /* Search Bar */
-      .search-container {
-        display: flex;
-        gap: 10px;
-      }
+  .sub-menu-wrap {
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 280px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 100;
+  }
 
-      .search-container input {
-        flex-grow: 1;
-        border: 2px solid #17a2b8;
-        border-radius: 8px;
-        padding: 10px;
-      }
+  .sub-menu-wrap.open-menu {
+    max-height: 400px;
+  }
 
-      .search-container button {
-        background: #17a2b8;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        transition: 0.3s ease-in-out;
-      }
+  .sub-menu {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
 
-      .search-container button:hover {
-        background: #0056b3;
-      }
+  .sub-menu-link {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    margin: 12px 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
 
-      /* Filters */
-      .filters {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-      }
+  .sub-menu-link:hover {
+    color: #007bff;
+  }
 
-      .filters select {
-        flex-grow: 1;
-        border: 2px solid #17a2b8;
-        border-radius: 8px;
-        padding: 8px;
-      }
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #222;
+  }
 
-      .filters button {
-        background: #28a745;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        transition: 0.3s ease-in-out;
-      }
+  .search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
 
-      .filters button:hover {
-        background: #218838;
-      }
+  .search-container input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+  }
 
-      /* PG Cards */
-      .card {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-      }
+  .search-container button {
+    background: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+  }
 
-      .card:hover {
-        transform: scale(1.05);
-      }
+  .filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
 
-      .card img {
-        height: 200px;
-        object-fit: cover;
-      }
+  .filters select,
+  .filters button {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+  }
 
-      .card-body {
-        text-align: center;
-      }
+  .filters select {
+    border: 1px solid #ccc;
+  }
 
-      .card-title {
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: #0056b3;
-      }
+  .filters button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+  }
 
-      .card-text {
-        font-size: 1rem;
-        color: #555;
-      }
+  .filters button:hover {
+    background-color: #218838;
+  }
 
-      .card .btn {
-        background: #17a2b8;
-        border: none;
-        transition: 0.3s ease-in-out;
-      }
+  .card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    background: #fff;
+    border: none;
+  }
 
-      .card .btn:hover {
-        background: #0056b3;
-      }
+  .card:hover {
+    transform: translateY(-5px);
+  }
 
-      /* Footer */
-      footer {
-        background: #222;
-        color: #ddd;
-        font-size: 0.9rem;
-        padding: 15px;
-      }
+  .card img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
 
-      footer:hover {
-        color: #fff;
-      }
-    </style>
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .card .btn {
+    background-color: #17a2b8;
+    border: none;
+  }
+
+  .card .btn:hover {
+    background-color: #0056b3;
+  }
+
+  footer {
+    background-color: #fff;
+    color: #777;
+    font-size: 0.9rem;
+    padding: 20px 10%;
+    text-align: center;
+    border-top: 1px solid #ddd;
+  }
+
+  footer:hover {
+    color: #333;
+  }
+</style>
+
   </head>
   <body>
     <div class="logo-profile">
       <nav>
           <div class="log">PG Accommodation</div>
           <ul>
-              <a href="#" class="btn" onclick="togglemenu()">Dropdown</a> </ul>
+              <a href="#" class="btn" onclick="togglemenu()">Menu</a> </ul>
               <div class="sub-menu-wrap" id="subMenu">
                   <div class="sub-menu">
                       <a href="signup.html" class="sub-menu-link">
                           <img src="#" alt="">
                           <p>Sign-up/Login</p>
-                          <span>></span>
+                          <span></span>
                       </a>
                       <a href="explore.html" class="sub-menu-link">
                         <p>Explore</p>
-                        <span>></span>
+                        <span></span>
                     </a>
                     <a href="amenities.html" class="sub-menu-link">
             
                       <p>Amenities</p>
-                      <span>></span>
+                      <span></span>
                   </a>
                   <a href="index.html" class="sub-menu-link">
                           
