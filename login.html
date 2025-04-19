@@ -4,13 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
     <script src="js/bootstrap.js"></script>
     <script src="js/sweetalert.js"></script>
     <script src="js/index.js"></script>
     <title>Login</title>
+    <style>
+    body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+    .outer-box{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top left,#3ed8ff, #a8f5ff);
+}
+.inner-box{
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 80px;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    padding: 20px 40px;
+    /*background-color: #ffffff09;*/
+    background: linear-gradient(to top left, #ffffffff,#ffffff33);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px #2773a5;
+    /* z-index: 2; */
+}
+.login-box{
+    width: 400px;
+    margin: 0 auto;
+    position:relative;
+    top:40%;
+    transform: translateY(-50%);
+    padding: 20px 40px;
+    /*background-color: #ffffff09;*/
+    background: linear-gradient(to top left, #ffffffff,#ffffff33);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px #2773a5;
+    z-index: 2;
+}
+h1{
+    font-size:2.5rem;
+    color: #212121;
+}
+.signup-body{
+    margin: 20px 0;
+}
+
+.signup-body p label{
+    display: block;
+    font-weight: bold;
+}
+.signup-body p input{
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #cccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+.signup-body p input[type="submit"]
+{
+    background-color: #3498db;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.signup-body p input[type="submit"]:hover{
+    background-color:cadetblue;
+}
+.signup-footer p{
+    color:black;
+    text-align:center;
+}
+.signup-footer p a{
+    color:blue;
+}
+.circle
+{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background: linear-gradient(to top right, #ffffff33,rgb(152, 167, 251));
+    position: absolute;
+}
+.c1
+{
+    top:70px;
+    left: 105px;
+}
+.c2
+{  
+    bottom: 100px;
+    right: 20px;
+}
+.login-button{
+    box-sizing: inherit;
+    background: linear-gradient(45deg,#28a745,#218838);
+    color: white;
+    margin-right:10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.subbtn
+{
+    width: 320px;
+    height: 30px;
+    background-color: #3ed8ff;
+    margin-right:10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+}
+    </style>
 </head>
 <body>
     <div class="outer-box">
