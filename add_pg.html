@@ -116,7 +116,7 @@
           return;
         }
     
-        const pgData = { name: pgName, location: pgLocation };
+        const pgData = { name: pgName, locality: pgLocation };
     
         fetch(`http://localhost:8086/pg/add/${ownerId}`, {
           method: 'POST',

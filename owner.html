@@ -123,8 +123,8 @@
     <button class="close-btn" onclick="goBack()">&times;</button>
     <h2>OWNER</h2>
     <div class="attributes">
-      <p><strong>o_id:</strong> <span id="o_id">{owner id}</span></p>
-      <p><strong>properties_list:</strong> <span id="properties_list">House1, House2</span></p>
+      <p><strong>o_id:</strong> <span id="o_id"></span></p>
+      <p><strong>properties_list:</strong> <span id="properties_list">Loading...</span></p>
     </div>
     <div class="methods">
       <button onclick="confirmAndGo('add_pg.html')">add_PG()</button>
@@ -145,6 +145,35 @@
       }
       window.location.href = url;
     }
+    document.addEventListener("DOMContentLoaded", function () {
+       const ownerId = localStorage.getItem("ownerId");
+       const pgListSpan = document.getElementById("properties_list");
+
+       document.getElementById("o_id").textContent = ownerId || "Not Logged In";
+
+       if (ownerId) {
+        fetch(`http://localhost:8086/pg/view/${ownerId}`, {
+         headers: {
+        'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+       }
+      })
+      .then(res => res.json())
+      .then(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        pgListSpan.textContent = data.map(pg => pg.name).join(", ");
+      } else {
+        pgListSpan.textContent = "No PGs found.";
+      }
+    })
+    .catch(error => {
+      pgListSpan.textContent = "Error fetching PGs.";
+      console.error(error);
+    });
+  } else {
+    pgListSpan.textContent = "Owner not logged in.";
+    }
+  });
+
   </script>
 </body>
 </html>
