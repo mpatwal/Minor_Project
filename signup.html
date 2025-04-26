@@ -125,7 +125,7 @@
             localStorage.setItem('authToken', data.token || "");
             localStorage.setItem('user', JSON.stringify(data.user || {}));
 
-            swal("Success!", "Account created successfully!", "success").then(() => {
+                swal("Success!", "Account created successfully!", "success").then(() => {
                 const userRole = data.user?.role;
 
                 if (userRole === "ROLE_OWNER") {

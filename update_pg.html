@@ -125,24 +125,44 @@
         let pgLocation = document.getElementById("pgLocation").value;
 
         if (pgName === "" || pgLocation === "") {
-          document.getElementById("message").innerText =
-            "Please fill all fields!";
+          document.getElementById("message").innerText = "Please fill all fields!";
           return;
         }
 
-        let pgList = JSON.parse(localStorage.getItem("pgs")) || [];
-        let pgIndex = pgList.findIndex((pg) => pg.name === pgName);
+        // Get the token from localStorage (or use session storage, or cookie)
+        let token = localStorage.getItem("authToken"); // Make sure the token is stored during login
 
-        if (pgIndex === -1) {
-          document.getElementById("message").innerText = "PG not found!";
+        if (!token) {
+          document.getElementById("message").innerText = "Please log in first!";
           return;
         }
 
-        pgList[pgIndex].location = pgLocation;
-        localStorage.setItem("pgs", JSON.stringify(pgList));
+        let ownerId = 1; // Replace with dynamic ownerId (you can get this from the logged-in user context)
+        let pgId = 69; // Replace with the PG id you want to update
 
-        document.getElementById("message").innerText =
-          "PG updated successfully!";
+        // Prepare PG data
+        let pgData = {
+          name: pgName,
+          location: pgLocation,
+        };
+
+        // Make API call to update PG
+        fetch(`http://localhost:8086/pg/update/${ownerId}/${pgId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify(pgData),
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("message").innerText = "PG updated successfully!";
+        })
+        .catch(error => {
+          document.getElementById("message").innerText = "Error updating PG!";
+          console.error("Error:", error);
+        });
       }
 
       function closePage() {
