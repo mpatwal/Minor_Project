@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -143,20 +142,10 @@
       }
     </style>
 
-=======
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/animate.css">
->>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
     <script src="js/bootstrap.js"></script>
     <script src="js/sweetalert.js"></script>
     <script src="js/index.js"></script>
     <title>Signup</title>
-<<<<<<< HEAD
   </head>
   <body>
     <div class="outer-box">
@@ -331,145 +320,4 @@
         });
     </script>
   </body>
-=======
-</head>
-<body>
-    <div class="outer-box">
-        <div class="inner-box">
-            <header class="SIGNUP">
-                <h1>SIGNUP</h1>
-                <main class="signup-body">
-                    <form id="signup-form">
-                        <p>
-                            <label for="username">Username</label>
-                            <input type="text" id="username" required>
-                        </p>
-                        <p>
-                            <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" required>
-                        </p>
-                        <p>
-                            <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" required>
-                        </p>
-                        <p>
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" required>
-                        </p>
-                        <p>
-                            <label for="password">Password</label>
-                            <input type="password" id="password" placeholder="At least 8 characters" required>
-                        </p>
-                        <p>
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
-                        </p>
-                        <p>
-                            <label for="role">Select Role</label>
-                            <select id="role" required>
-                                <option value="">-- Select Role --</option>
-                                <option value="ROLE_USER">USER</option>
-                                <option value="ROLE_ADMIN">ADMIN</option>
-                                <option value="ROLE_OWNER">OWNER</option>
-                            </select>
-                        </p>
-                        <p>
-                            <button class="subbtn" type="submit" id="submit">Create Account</button>
-                        </p>
-                    </form>   
-                </main>
-                <footer class="signup-footer">
-                    <p>Already have an account? <a href="login.html">Login</a></p>
-                    <p><a href="index.html">Back to home</a></p>
-                </footer>
-            </header>
-        </div>
-        <div class="circle c1"></div>
-        <div class="circle c2"></div>
-    </div>
-
-    <script>
-    document.getElementById('signup-form').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value.trim();
-    const firstName = document.getElementById('firstname').value.trim();
-    const lastName = document.getElementById('lastname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const role = document.getElementById('role').value;
-    const submitBtn = document.getElementById('submit');
-
-    // Validate username
-    const usernameRegex = /^[a-zA-Z0-9_]+$/;
-    if (!usernameRegex.test(username)) {
-        swal("Invalid Username", "Username can only contain letters, numbers, and underscores.", "error");
-        return;
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        swal("Invalid Email", "Please enter a valid email address!", "error");
-        return;
-    }
-
-    // Validate phone number
-    const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-        swal("Invalid Phone", "Please enter a valid 10-digit phone number.", "error");
-        return;
-    }
-
-    // Validate role selection
-    if (!role) {
-        swal("Role Required", "Please select a role before proceeding.", "error");
-        return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Processing...";
-
-    const payload = { username, firstName, lastName, email, password, phoneNumber: phone, role };
-
-    try {
-        const response = await fetch('http://localhost:8086/auth/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            localStorage.setItem('authToken', data.token || "");
-            localStorage.setItem('user', JSON.stringify(data.user || {}));
-
-                swal("Success!", "Account created successfully!", "success").then(() => {
-                const userRole = data.user?.role;
-
-                if (userRole === "ROLE_OWNER") {
-                    localStorage.setItem("ownerId", data.user.id);
-                    window.location.href = "owner.html";
-                } else if (userRole === "ROLE_ADMIN") {
-                    localStorage.setItem("adminId", data.user.id);
-                    window.location.href = "admin.html";
-                } else {
-                    window.location.href = "home.html";
-                }
-            });
-        } else {
-            swal("Signup Failed", data.message || "Unknown error", "error");
-        }
-    } catch (error) {
-        swal("Error", "Something went wrong. Please try again.", "error");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Create Account";
-    }
-});
-</script>
-</body>
->>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
 </html>

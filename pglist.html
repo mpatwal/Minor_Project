@@ -7,7 +7,6 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-<<<<<<< HEAD
         background: url("backg.jpeg") no-repeat center center/cover;
         text-align: center;
         margin: 0;
@@ -103,43 +102,10 @@
         border-top: 1px solid rgba(255, 255, 255, 0.3);
         padding-top: 15px;
         font-size: 14px;
-=======
-        background-color: #f4f4f4;
-        text-align: center;
-        margin: 20px;
-      }
-      h2 {
-        color: #333;
-      }
-      #pgDetails {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
-        margin: 20px auto;
-      }
-      h3 {
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-      p {
-        font-size: 16px;
-        color: #555;
-      }
-      strong {
-        color: #333;
-      }
-      img {
-        max-width: 100%;
-        border-radius: 10px;
-        margin-bottom: 10px;
->>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
       }
     </style>
   </head>
   <body>
-<<<<<<< HEAD
     <body>
       <!-- Back Button -->
       <div style="text-align: center;">
@@ -223,30 +189,6 @@
       document.getElementById("pg-amenities").textContent =
         "Amenities: " + pgAmenities;
       document.getElementById("pg-image").src = pgImage; // 👈 Set the image src
-=======
-    <h2>PG Details</h2>
-    <div id="pgDetails"></div>
-
-    <script>
-      function getQueryParams() {
-        let params = new URLSearchParams(window.location.search);
-        return {
-          name: params.get("name"),
-          locality: params.get("locality"),
-          price: params.get("price"),
-          image: params.get("image"),
-        };
-      }
-
-      let pgDetails = getQueryParams();
-      document.getElementById("pgDetails").innerHTML = `
-            <h3>${pgDetails.name}</h3>
-            <p><strong>Location:</strong> ${pgDetails.locality}</p>
-            <p><strong>Price:</strong> ₹${pgDetails.price}</p>
-            <img src="pg3.jpg" alt="Description of image">
-
-        `;
->>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
     </script>
   </body>
 </html>
