@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - PG Finder</title>
+    <style>
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: 'Courier New', Courier, monospace;
+    }
+
+nav{
+    background: #007bff;
+    padding: 10px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    }
+
+
+
+.btn{
+    background: white;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.4s;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 2px;
+    border-radius: 10px;
+
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+
+}
+.sub-menu-link p{
+    width: 100%;
+
+}
+.sub-menu-link span{
+    font-size: 20px;
+    transition: 0.4s;
+}
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+.reviews {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.reviews h1 {
+    font-size: 36px;
+    color: #007bff;
+}
+
+.reviews p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.review {
+    width: 280px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    background: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.review img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.review h3 {
+    font-size: 22px;
+    margin: 5px 0;
+}
+
+.review p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Add Review Form */
+.add-review {
+    text-align: center;
+    padding: 40px;
+    background: #e3f2fd;
+}
+
+.add-review h2 {
+    font-size: 28px;
+    color: #007bff;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+.log{
+    font-weight: bold;
+    font-size: 25px;
+    display: flex;
+}
+
+</style>
+</head>
+<body>
+    <div class="logo-profile">
+        <nav>
+        <div class="log">PG Accommodation</div>
+            <ul>
+                <a href="#" class="btn" onclick="togglemenu()">Dropdown</a> </ul>
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <a href="signup.html" class="sub-menu-link">
+                            <img src="#" alt="">
+                            <p>Sign-up/Login</p>
+                            <span>></span>
+                        </a>
+                        <a href="explore.html" class="sub-menu-link">
+                          <p>Explore</p>
+                          <span>></span>
+                      </a>
+                      <a href="amenities.html" class="sub-menu-link">
+              
+                        <p>Amenities</p>
+                        <span>></span>
+                    </a>
+                    <a href="review.html" class="sub-menu-link">
+                      <img src="#" alt="">
+                      <p>Review</p>
+                      <span>></span>
+                  </a>
+                    <a href="index.html" class="sub-menu-link">
+                            
+                            <button>Logout</button>
+                            
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+<!-- Reviews Section -->
+<section class="reviews">
+    <h1>What Our Tenants Say</h1>
+    <p>Read real feedback from our happy tenants.</p>
+
+    <div class="reviews-container">
+
+        <!-- Review 1 -->
+        <div class="review">
+            <img src="boy.png" alt="User">
+            <h3>Amit Sharma</h3>
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>"Great place to stay! Clean rooms, good food, and excellent security."</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review">
+            <img src="woman.png" alt="User">
+            <h3>Priya Verma</h3>
+            <p>⭐⭐⭐⭐</p>
+            <p>"Affordable and comfortable PG. The WiFi speed could be better, but overall great experience."</p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review">
+            <img src="people.png" alt="User">
+            <h3>Rohan Gupta</h3>
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>"Loved the location and the services. Highly recommended for students!"</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Add Review Form -->
+<section class="add-review">
+    <h2>Leave a Review</h2>
+    <form id="reviewForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <select id="rating">
+            <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+            <option value="4">⭐⭐⭐⭐ - Good</option>
+            <option value="3">⭐⭐⭐ - Average</option>
+            <option value="2">⭐⭐ - Below Average</option>
+            <option value="1">⭐ - Poor</option>
+        </select>
+        <textarea id="comment" placeholder="Write your review here..." required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+</section>
+
+
+
+<script src="script.js">
+    
+      function togglemenu(){
+    subMenu.classList.toggle("open-menu");
+}
+
+</script>
+</body>
+</html>

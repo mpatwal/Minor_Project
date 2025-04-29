@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New PG</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #89f7fe, #8eb6ee);
+    }
+
+    .form-container {
+      background: #ebafd0;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .form-container:hover {
+      transform: translateY(-3px);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #66a6ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .save-btn {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      margin-top: 10px;
+    }
+
+    .save-btn:hover {
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+    }
+
+    .back-btn {
+      background: #e0e0e0;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .back-btn:hover {
+      background: #ccc;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ff5c5c;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      line-height: 30px;
+      text-align: center;
+    }
+
+    .close-btn:hover {
+      background: #e60000;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 30px 20px;
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <button class="close-btn" onclick="closePage()">&times;</button>
+    <h2>Add New PG</h2>
+    <input type="text" id="pgName" placeholder="Enter PG Name" />
+    <input type="text" id="pgLocation" placeholder="Enter PG Location" />
+    <button class="save-btn" onclick="savePG()">Save PG</button>
+    <button class="back-btn" onclick="goBack()">Exit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    function savePG() {
+      let pgName = document.getElementById("pgName").value.trim();
+      let pgLocation = document.getElementById("pgLocation").value.trim();
+      let messageElem = document.getElementById("message");
+
+      messageElem.className = "";
+      messageElem.innerText = "";
+
+      if (!pgName || !pgLocation) {
+        messageElem.innerText = "Please fill all fields!";
+        messageElem.classList.add("error");
+        return;
+      }
+
+      const ownerId = localStorage.getItem("ownerId");
+      if (!ownerId) {
+        messageElem.innerText = "Owner ID not found. Please login again.";
+        messageElem.classList.add("error");
+        return;
+      }
+      const authToken = localStorage.getItem("authToken");
+
+      if (!authToken) {
+        messageElem.innerText = "Authorization token is missing. Please log in again.";
+        messageElem.classList.add("error");
+        return;
+      }
+
+      const pgData = { name: pgName, locality: pgLocation };
+
+      fetch(`http://localhost:8086/pg/add/${ownerId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        },
+        body: JSON.stringify(pgData)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to add PG");
+        return response.json();
+      })
+      .then(data => {
+        messageElem.innerText = "PG added successfully!";
+        messageElem.classList.add("success");
+        document.getElementById("pgName").value = "";
+        document.getElementById("pgLocation").value = "";
+      })
+      .catch(error => {
+        messageElem.innerText = "Error adding PG!";
+        messageElem.classList.add("error");
+        console.error("Error: ", error);
+      });
+    }
+
+    function closePage() {
+      window.location.href = "owner.html";
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

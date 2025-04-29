@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore PGs - RentHive</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #f2f5f9;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  nav {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .log {
+    font-weight: 600;
+    font-size: 26px;
+    color: #007bff;
+  }
+
+  .btn {
+    background: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  .btn:hover {
+    background: #0056b3;
+  }
+
+  .sub-menu-wrap {
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 280px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 100;
+  }
+
+  .sub-menu-wrap.open-menu {
+    max-height: 400px;
+  }
+
+  .sub-menu {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+
+  .sub-menu-link {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    margin: 12px 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .sub-menu-link:hover {
+    color: #007bff;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .search-container input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .search-container button {
+    background: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .filters select,
+  .filters button {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+  }
+
+  .filters select {
+    border: 1px solid #ccc;
+  }
+
+  .filters button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+  }
+
+  .filters button:hover {
+    background-color: #218838;
+  }
+
+  .card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    background: #fff;
+    border: none;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .card .btn {
+    background-color: #17a2b8;
+    border: none;
+  }
+
+  .card .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .site-footer {
+  background: linear-gradient(135deg, #dea0f4, #efd1f0);
+  color: rgb(4, 42, 96);
+  padding: 40px 0 20px;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 50px; /* 👈 Adds space between content and footer */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.footer-about, .footer-links, .footer-contact {
+  flex: 1 1 250px;
+  margin: 20px;
+}
+
+.footer-about h3, .footer-links h4, .footer-contact h4 {
+  margin-bottom: 15px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  text-decoration: none;
+  color: #7741f5;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  padding-top: 15px;
+  font-size: 14px;
+}
+</style>
+
+  </head>
+  <body>
+    <div class="logo-profile">
+      <nav>
+          <div class="log">PG Accommodation</div>
+          <ul>
+              <a href="#" class="btn" onclick="togglemenu()">Menu</a> </ul>
+              <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                      <a href="signup.html" class="sub-menu-link">
+                          <img src="#" alt="">
+                          <p>Sign-up/Login</p>
+                          <span></span>
+                      </a>
+                      
+                    <a href="amenities.html" class="sub-menu-link">
+            
+                      <p>Amenities</p>
+                      <span></span>
+                  </a>
+                  <a href="index.html" class="sub-menu-link">
+                          
+                          <button>Back To Home</button>
+                          
+                      </a>
+                      </div>
+                  </div>
+              </div>
+          </nav>
+      </div>
+     
+
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Explore PG Accommodations 🔍📌🧭🚀📍</h2>
+
+      <!-- Search Bar -->
+      <div class="search-container mb-4">
+        <input
+          type="text"
+          class="form-control"
+          id="searchInput"
+          placeholder="Search by location..."
+        />
+        <button class="btn btn-primary" onclick="searchPGs()">Search</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters mb-4 d-flex justify-content-between">
+        <select class="form-select" id="budgetFilter">
+          <option value="">Budget</option>
+          <option value="5000-10000">₹5,000 - ₹10,000</option>
+          <option value="10000-15000">₹10,000 - ₹15,000</option>
+          <option value="10000-15000">₹15,000 - ₹20,000</option>
+        </select>
+        <select class="form-select" id="genderFilter">
+          <option value="">Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Unisex">Unisex</option>
+        </select>
+        <button class="btn btn-success" onclick="applyFilters()">
+          Apply Filters
+        </button>
+      </div>
+
+      <!-- PG Listings -->
+      <div class="row" id="pgList">
+
+
+        <div class="col-md-4 mb-4">
+<!---->
+          <div class="pg-card" 
+    data-name="City View" 
+    data-location="b-1,flat-2,Karol Bagh" 
+    data-occupancy="3" 
+    data-price="9,000/person*" 
+    data-amenities="🪟 Attached Balcony, 🆒 Air Conditioning,👯 or 👨🏿‍👦🏿‍👦🏿 Occupancy,🛁 Attached Wahroom , 🧊 Refrigerator">
+
+    <div class="card">
+      <img src="np2.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+        <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">City View Pg</a>
+        </div> <!-- href will be set dynamically -->
+        <div class="pg-location">📍2 km from Karol Bagh 🚇 Metro Station </div>
+        <div class="pg-price">🛏️ x 1 = ₹9,000/mo* </div>
+        <div class="pg-buttons">
+            <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+        </div>
+    </div>
+</div>
+        </div>
+        
+<div class="col-md-4 mb-4">
+          <div class="pg-card" 
+              data-name="Aashiya" 
+              data-location="C-11/2, Subhash Nagar" 
+              data-occupancy="👯 2" 
+              data-price="12,000/person*" 
+              data-amenities="🪟 Attached Balcony, 🆒 Air Conditioning, 👮 Security,🛁 Attached Wahroom ,🧊 Refrigerator">
+          
+              <div class="card">
+                <img src="np3.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+                  <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">Aashiya</a>
+                  </div> <!-- href will be set dynamically -->
+                  <div class="pg-location">📍5 km from Subhash Nagar 🚇 Metro Station </div>
+                 
+                  <div class="pg-price">🛏️ x 1 = ₹12,000/mo* </div> 
+                      <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                 
+              </div>
+          </div>
+</div>
+                  
+<div class="col-md-4 mb-4">
+                    <!---->
+                    <div class="pg-card" 
+                        data-name="Montreal House" 
+                        data-location="A-11, Kirti Nagar" 
+                        data-occupancy="👯 2" 
+                        data-price="12,000/person*" 
+                        data-amenities="🪟 Attached Balcony, 🆒 Air Conditioning, 👮 Security,🛁 Attached Wahroom ,🧊 Refrigerator">
+                    
+                        <div class="card">
+                          <img src="np6.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+                            <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">Montreal House</a>
+                            </div> <!-- href will be set dynamically -->
+                            <div class="pg-location">📍2 km from Kirti Nagar  🚇 Metro Station </div>
+                           
+                            <div class="pg-price">🛏️ x 1 = ₹12,000/mo* </div> 
+                                <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                           
+                        </div>
+                    </div>
+</div>
+          
+<div class="col-md-4 mb-4">
+                              <!---->
+        <div class="pg-card" 
+                data-name="Elite Residency" 
+                                  data-location="A-11,Clock Tower " 
+                                  data-occupancy="👯 2" 
+                                  data-price="10,000/person*" 
+                                  data-amenities="🪟 Attached Balcony, 🆒 Air Conditioning, 👮 Security,🛁 Attached Wahroom ,🧊 Refrigerator">
+                              
+                                  <div class="card">
+                                    <img src="np6.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+                                      <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">Elite Residency</a>
+                                      </div> <!-- href will be set dynamically -->
+                                      <div class="pg-location">📍1 km from Pulbangash 🚇 Metro Station </div>
+                                     
+                                      <div class="pg-price">🛏️ x 1 = ₹10,000/mo* </div> 
+                                          <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                                     
+                                  </div>
+        </div>
+</div>
+<div class="col-md-4 mb-4">
+                                        <!---->
+                                                  <div class="pg-card" 
+                                            data-name="Sunrise Pg" 
+                                            data-location="C-11,South Delhi" 
+                                            data-occupancy="2" 
+                                            data-price="20,000/person*" 
+                                            data-amenities="🪟 Attached Balcony, 🆒 Air Conditioning, 👮 Security,🛁 Attached Wahroom ,🧊 Refrigerator,🏋🏽🔥💪🏼🎧 Nearby GYM">
+                                        
+                                            <div class="card">
+                                              <img src="2pg.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+                                                <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">Sunrise Pg</a>
+                                                </div> <!-- href will be set dynamically -->
+                                                <div class="pg-location">📍2.5 km from Hauz Khas 🚇 Metro Station </div>
+                                               
+                                                <div class="pg-price">🛏️ x 1 = ₹20,000/mo* </div> 
+                                                    <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                                               
+                                            </div>
+                                        </div>
+</div>
+        
+
+                                                <div class="col-md-4 mb-4">
+                                                  <!---->
+                                                            <div class="pg-card" 
+                                                      data-name="Sharma's Pg" 
+                                                      data-location="B-6/flat-6,Chandani Chowk " 
+                                                      data-occupancy="👯 2" 
+                                                      data-price="15,000/person*" 
+                                                      data-amenities="🧹Home Cleaning Attached Balcony, 🆒 Air Conditioning, 👮 Security,🛁 Attached Wahroom ,🧊 Refrigerator">
+                                                  
+                                                      <div class="card">
+                                                        <img src="pg2.jpg" alt="PG Room" class="pg-image" style="width: 100%; height: 200px; object-fit: cover;" />
+                                                          <div class="pg-title"><a href="pglist.html?name=Cozy%20Corner&location=North%20Campus&occupancy=2&price=10000&amenities=Attached%20Balcony,Air%20Conditioning,Double,Triple">Sharma's Pg</a>
+                                                          </div> <!-- href will be set dynamically -->
+                                                          <div class="pg-location">📍1.5 km from Chandni Chowk 🚇 Metro Station </div>
+                                                         
+                                                          <div class="pg-price">🛏️ x 1 = ₹15,000/mo* </div> 
+                                                              <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                                                         
+                                                      </div>
+                                                  </div>
+                                                          </div>
+
+      </div>
+    </div>
+     <!-- Footer HTML -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>PG Accommodation</h3>
+      <p>Helping you find your perfect stay with comfort and trust.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="amenities.html">Amenities</a></li>
+        <li><a href="signup.html">Signup</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: support@pgaccommodation.com</p>
+      <p>Phone: +91 9876543210</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 PG Accommodation | All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+
+const pgCards = document.querySelectorAll('.pg-card');
+
+pgCards.forEach(card => {
+  const titleLink = card.querySelector('.pg-title a');
+
+  const name = encodeURIComponent(card.getAttribute('data-name'));
+  const location = encodeURIComponent(card.getAttribute('data-location'));
+  const occupancy = encodeURIComponent(card.getAttribute('data-occupancy'));
+  const price = encodeURIComponent(card.getAttribute('data-price'));
+  const amenities = encodeURIComponent(card.getAttribute('data-amenities'));
+  
+  const image = encodeURIComponent(card.querySelector('.pg-image').getAttribute('src')); // 👈 Add this
+
+  const url = `pglist.html?name=${name}&location=${location}&occupancy=${occupancy}&price=${price}&amenities=${amenities}&image=${image}`; // 👈 include image
+
+  titleLink.href = url;
+});
+
+</script>
+   
+
+  </body>
+</html>

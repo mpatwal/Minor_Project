@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Bookings</title>
+    <style>
+      /* General Body Styling */
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        margin: 0;
+        flex-direction: column;
+      }
+
+      /* Container for bookings */
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        margin-top: 50px;
+      }
+
+      /* Title Styling */
+      h2 {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      /* Booking Box Styling */
+      .booking {
+        background: #ffffff;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .booking strong {
+        color: #2a5298;
+      }
+
+      /* Button Styles */
+      .delete-btn {
+        display: block;
+        margin-top: 10px;
+        padding: 8px 15px;
+        font-size: 14px;
+        background: #ff4b5c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .delete-btn:hover {
+        background: #d43f51;
+      }
+
+      .back-btn {
+        margin-top: 30px;
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #6b6b6b, #a0a0a0);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .back-btn:hover {
+        background: linear-gradient(90deg, #28a745, #34d058);
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+
+        h2 {
+          font-size: 1.5em;
+        }
+
+        .booking {
+          font-size: 14px;
+        }
+
+        .delete-btn, .back-btn {
+          font-size: 14px;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>View Bookings</h2>
+      <div id="bookings-list"></div>
+      <button class="back-btn" onclick="goBack()">Exit</button>
+    </div>
+
+    <script>
+      function initializeBookings() {
+        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+        // If there are no bookings, add some sample ones
+        if (bookings.length === 0) {
+          bookings = [
+            {
+              pgName: "GreenView",
+              customerName: "Sakshi Shrewat",
+              phone: "9560345672",
+              checkIn: "2025-04-01",
+              checkOut: "2025-07-10",
+            },
+            {
+              pgName: "Blue Sky",
+              customerName: "Sushil Singh",
+              phone: "9876543210",
+              checkIn: "2025-03-31",
+              checkOut: "2025-07-15",
+            },
+            {
+              pgName: "Sunrise Villa",
+              customerName: "Kavya Legha",
+              phone: "8549873210",
+              checkIn: "2025-05-07",
+              checkOut: "2025-08-20",
+            },
+            {
+              pgName: "CozyCorner",
+              customerName: "Saksham",
+              phone: "7896541230",
+              checkIn: "2025-04-10",
+              checkOut: "2025-10-25",
+            },
+          ];
+          localStorage.setItem("bookings", JSON.stringify(bookings));
+        }
+      }
+
+      function loadBookings() {
+        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        let bookingsList = document.getElementById("bookings-list");
+        bookingsList.innerHTML = "";
+
+        if (bookings.length === 0) {
+          bookingsList.innerHTML = "<p>No bookings available.</p>";
+          return;
+        }
+
+        bookings.forEach((booking, index) => {
+          let bookingDiv = document.createElement("div");
+          bookingDiv.classList.add("booking");
+          bookingDiv.innerHTML = `
+            <strong>PG Name:</strong> ${booking.pgName}<br>
+            <strong>Customer:</strong> ${booking.customerName}<br>
+            <strong>Phone:</strong> ${booking.phone}<br>
+            <strong>Check-in:</strong> ${booking.checkIn}<br>
+            <strong>Check-out:</strong> ${booking.checkOut}<br>
+            <button class="delete-btn" onclick="deleteBooking(${index})">Delete</button>
+          `;
+          bookingsList.appendChild(bookingDiv);
+        });
+      }
+
+      function deleteBooking(index) {
+        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        bookings.splice(index, 1);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        loadBookings();
+      }
+
+      function goBack() {
+        window.location.href = "owner.html";
+      }
+
+      window.onload = function () {
+        initializeBookings();
+        loadBookings();
+      };
+    </script>
+  </body>
+</html>

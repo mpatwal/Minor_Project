@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <title>Home - PG Accommodation</title>
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .hero {
+            position: relative;
+            text-align: center;
+        }
+        .hero .buttons {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+        .hero .buttons button {
+            background-color: white;
+            color: #007bff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .hero .buttons button:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero bg-info text-white text-center py-5">
+        <div class="buttons">
+            <button onclick="location.href='signup.html'">Signup</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+        <div class="container">
+            <h1>Welcome to PG Accommodation</h1>
+            <p>Find your perfect PG, start your new journey today!</p>
+            <a href="explore.html" class="btn btn-light">Browse PGs</a>
+        </div>
+    </section>
+
+    <!-- PG Listings -->
+    <div class="container py-5">
+        <h2>Popular PGs</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="pg_1.webp" class="card-img-top" alt="PG Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Nestify PG</h5>
+                        <p class="card-text">Karol Bagh, 0.2 km from Metro Station</p>
+                        <p class="card-text">₹16,899/mo*</p>
+                        <a href="schedule_visit.html" class="btn btn-primary">Schedule a Visit</a>
+                        <a href="request.html" class="btn btn-secondary">Request a Callback</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="pg_2.webp" class="card-img-top" alt="PG Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Cozy Corner</h5>
+                        <p class="card-text">North Campus, 0.1 km from Kamla Market</p>
+                        <p class="card-text">₹16,899/mo*</p>
+                        <a href="schedule_visit.html" class="btn btn-primary">Schedule a Visit</a>
+                        <a href="request.html" class="btn btn-secondary">Request a Callback</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="pg_3.webp" class="card-img-top" alt="PG Image">
+                    <div class="card-body">
+                        <h5 class="card-title">HavenHub</h5>
+                        <p class="card-text">North Campus, 0.1 km from Kamla Market</p>
+                        <p class="card-text">₹16,899/mo*</p>
+                        <a href="schedule_visit.html" class="btn btn-primary">Schedule a Visit</a>
+                        <a href="request.html" class="btn btn-secondary">Request a Callback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us py-5 bg-light">
+        <div class="container text-center">
+            <h2>Why Choose Us?</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Safe & Secure</h4>
+                    <p>Your safety is our top priority. All PGs are vetted and verified.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Affordable Options</h4>
+                    <p>Find PGs that fit your budget, with no hidden costs.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Convenient Locations</h4>
+                    <p>Choose PGs located near metro stations, markets, and universities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function logout() {
+            alert("You have been logged out!");
+            location.href = "index.html";
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken || !user) {
+        window.location.href = "index.html"; // Redirect to login if not authenticated
+    } else {
+        document.getElementById("welcome-message").innerText = `Welcome, ${user.firstName}!`;
+        document.getElementById("logout-button").addEventListener("click", function () {
+            localStorage.clear(); // Clear session
+            window.location.href = "index.html"; // Redirect to login
+        });
+    }
+});
+
+    </script>
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

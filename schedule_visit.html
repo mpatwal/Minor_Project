@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule a Visit</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Apply a modern font */
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(120deg, #8d56fb, #6db0f8, #dc7ef8, #e6abff);
+        background-size: 400% 400%;
+        animation: gradientFlow 12s ease infinite;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Gradient animation */
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Add bold floating circles and squares */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+      }
+
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 40%
+          );
+        animation: floatShapes 15s linear infinite;
+        pointer-events: none;
+      }
+
+      /* Bold animated floating geometric shapes */
+      @keyframes floatShapes {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-200px) rotate(45deg);
+        }
+        100% {
+          transform: translateY(0) rotate(360deg);
+        }
+      }
+
+      body::before {
+        /* Larger circles with more visible effects */
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 255, 255, 0.25) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 80%,
+            rgba(255, 255, 255, 0.25) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 255, 255, 0.25) 0%,
+            transparent 50%
+          );
+        animation: floatShapes 15s linear infinite;
+        z-index: -1;
+      }
+
+      /* Larger squares floating across the screen */
+      @keyframes squareFloat {
+        0% {
+          transform: translateX(0) translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateX(150px) translateY(150px) rotate(45deg);
+        }
+        100% {
+          transform: translateX(0) translateY(0) rotate(360deg);
+        }
+      }
+
+      .square {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.3);
+        animation: squareFloat 8s infinite ease-in-out;
+        z-index: -2;
+      }
+
+      /* Positioning the squares in the HTML */
+
+      /* You can manually place the square divs in the HTML */
+
+      /* Form container */
+      .container {
+        background: rgb(0, 0, 0);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(239, 224, 224, 0.2);
+        text-align: center;
+        text-decoration-color: #ddd;
+        width: 320px;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      /* Fade-in animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h2 {
+        margin-bottom: 15px;
+        color: #fbf7f7;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-weight: 500;
+        text-align: left;
+        margin-bottom: 5px;
+        color: #f6fbf8;
+      }
+
+      input {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        border-color: #4facfe;
+        outline: none;
+        box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+      }
+
+      button {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #00f2fe, #4facfe);
+        transform: scale(1.05);
+      }
+
+      #confirmation {
+        display: none;
+        color: green;
+        margin-top: 10px;
+        font-weight: bold;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="square" style="top: 10%; left: 10%"></div>
+    <div class="square" style="top: 30%; left: 70%"></div>
+    <div class="square" style="top: 50%; left: 30%"></div>
+    <div class="square" style="top: 70%; left: 50%"></div>
+
+    <div class="container">
+      <h2>Schedule a Visit</h2>
+      <form id="visitForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required />
+
+        <label for="date">Select Date</label>
+        <input type="date" id="date" name="date" required />
+
+        <br />
+        <button type="submit">Schedule a Visit</button>
+        <br />
+        <a href="index.html">Back to Home</a>
+        <br />
+        <a href="explore.html">Explore More</a>
+      </form>
+      <p id="confirmation">Your visit has been scheduled!</p>
+    </div>
+
+    <script>
+      document
+        .getElementById("visitForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          document.getElementById("confirmation").style.display = "block";
+        });
+    </script>
+  </body>
+</html>

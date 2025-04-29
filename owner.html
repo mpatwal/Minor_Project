@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner Dashboard</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(
+          135deg,
+          #00bfa5,
+          #004d40
+        ); /* Updated background */
+        color: white;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .class-box {
+        width: 380px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+      }
+
+      .class-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ff4b5c;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+      }
+
+      .close-btn:hover {
+        background: #28a745;
+        transform: rotate(90deg) scale(1.1);
+      }
+
+      .class-box h2 {
+        background: linear-gradient(90deg, #004d40, #00695c);
+        color: white;
+        margin: 0;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        font-size: 24px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      .attributes {
+        margin-top: 15px;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      .attributes p {
+        margin: 10px 0;
+      }
+
+      .methods button {
+        display: block;
+        width: 100%;
+        margin: 12px 0;
+        padding: 15px;
+        background: linear-gradient(90deg, #ff6f61, #d84315);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .methods button:hover {
+        background: linear-gradient(90deg, #28a745, #34d058);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
+      }
+
+      @media (max-width: 768px) {
+        .class-box {
+          width: 90%;
+          padding: 15px;
+        }
+
+        .methods button {
+          font-size: 14px;
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="class-box">
+      <button class="close-btn" onclick="goBack()">&times;</button>
+      <h2>OWNER</h2>
+      <div class="attributes">
+        <p><strong>o_id:</strong> <span id="o_id"></span></p>
+        <p>
+          <strong>properties_list:</strong>
+          <span id="properties_list">Loading...</span>
+        </p>
+      </div>
+      <div class="methods">
+        <button onclick="confirmAndGo('add_pg.html')">add_PG()</button>
+        <button
+          onclick="confirmAndGo('update_pg.html', 'Confirm to update PG details...!!!')"
+        >
+          update_PG()
+        </button>
+        <button
+          onclick="confirmAndGo('delete_pg.html', 'Confirm for Deleting PG...???')"
+        >
+          delete_PG()
+        </button>
+        <button
+          onclick="confirmAndGo('view_booking.html', 'Viewing bookings...')"
+        >
+          view_Booking()
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function goBack() {
+        window.location.href = "index.html";
+      }
+
+      function confirmAndGo(url, message = null) {
+        if (message) {
+          alert(message);
+        }
+        window.location.href = url;
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const ownerId = localStorage.getItem("ownerId");
+        const pgListSpan = document.getElementById("properties_list");
+
+        document.getElementById("o_id").textContent =
+          ownerId || "Not Logged In";
+
+        if (ownerId) {
+          fetch(`http://localhost:8086/pg/view/${ownerId}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (Array.isArray(data) && data.length > 0) {
+                pgListSpan.textContent = data.map((pg) => pg.name).join(", ");
+              } else {
+                pgListSpan.textContent = "No PGs found.";
+              }
+            })
+            .catch((error) => {
+              pgListSpan.textContent = "Error fetching PGs.";
+              console.error(error);
+            });
+        } else {
+          pgListSpan.textContent = "Owner not logged in.";
+        }
+      });
+    </script>
+  </body>
+</html>

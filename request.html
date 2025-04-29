@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request a Callback - PG Accommodation</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #766ddf, #9253b4);
+        color: rgb(236, 182, 254);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+        overflow: hidden;
+      }
+
+      /* Gradient animation for background */
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Create floating shapes in background */
+      body::before,
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        pointer-events: none;
+        animation: floatShapes 20s ease-in-out infinite;
+      }
+
+      body::before {
+        background: radial-gradient(
+            circle at 10% 10%,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 90% 90%,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 40%
+          );
+        opacity: 0.5;
+      }
+
+      body::after {
+        background: radial-gradient(
+            circle at 30% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 80% 30%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 30%
+          );
+        opacity: 0.3;
+      }
+
+      /* Animating the floating background shapes */
+      @keyframes floatShapes {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-100px) rotate(45deg);
+        }
+        100% {
+          transform: translateY(0) rotate(360deg);
+        }
+      }
+
+      /* Container Styles */
+      .container {
+        background: rgb(203, 181, 213);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+        color: #080101;
+        position: relative;
+        z-index: 1;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-sizing: border-box;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #000304;
+        font-size: 1.8rem;
+        font-style: normal;
+        letter-spacing: 1px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+        position: relative;
+      }
+
+      label {
+        font-weight: bold;
+        color: #050108;
+        font-size: 1rem;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #f7f7f7;
+        transition: all 0.3s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        background: #e8f4ff;
+        box-shadow: 0px 0px 10px rgba(209, 224, 240, 0.4);
+      }
+
+      .btn {
+        background: #49c52a;
+        color: white;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #080101;
+        font-style: unset;
+      }
+
+      a {
+        color: #fc1c1c;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Hidden confirmation message */
+      .confirmation {
+        display: none;
+        color: #28a745;
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+
+      .btn-container {
+        display: block;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .exit-btn {
+        background: #dc3545;
+      }
+
+      .exit-btn:hover {
+        background: #040000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="formheading">Request a Callback</h2>
+      <p id="instructionText">
+        Fill in your details and we will call you back shortly.
+      </p>
+
+      <form id="callbackForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="Enter your phone number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Additional Message</label>
+          <textarea
+            id="message"
+            rows="3"
+            placeholder="Any specific request?"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn">Confirm</button>
+        <br /><br />
+        <a href="index.html">Back to Home</a>
+      </form>
+
+      <p class="footer" id="footer">
+        We respect your privacy. Your details will not be shared.
+      </p>
+
+      <div id="confirmationMessage" class="confirmation">
+        <h2>Successfull</h2>
+        Thank you for your request! We will contact you shortly. <br />
+        <p>We respect your privacy. Your details will not be shared.</p>
+        <div class="btn-container">
+          <a href="explore.html"
+            ><button class="btn" id="exploreBtn">Explore More</button></a
+          >
+
+          <button class="btn exit-btn" id="exitBtn">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript to handle form submission and display the confirmation message
+      document
+        .getElementById("callbackForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent the form from submitting
+
+          // Hide the form
+          document.querySelector("form").style.display = "none";
+
+          document.getElementById("instructionText").style.display = "none";
+
+          document.getElementById("formheading").style.display = "none";
+
+          document.getElementById("footer").style.display = "none";
+
+          // Show the confirmation message
+          document.getElementById("confirmationMessage").style.display =
+            "block";
+
+          // Clear the form fields
+          document.getElementById("callbackForm").reset();
+        });
+
+      // Event listener for the "Explore More PGs" button
+      document
+        .getElementById("exploreBtn")
+        .addEventListener("click", function () {
+          // Redirect to the explore page
+          window.location.href = "explore-pgs.html"; // Replace with actual "Explore PGs" page URL
+        });
+
+      // Event listener for the "Exit" button
+      document.getElementById("exitBtn").addEventListener("click", function () {
+        // Close the window or redirect to a landing page
+        window.location.href = "index.html"; // Redirect to homepage or exit page
+      });
+    </script>
+  </body>
+</html>

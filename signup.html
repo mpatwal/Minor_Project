@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Basic Page Setup */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #89f7fe, #66a6ff);
+        background-size: cover;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+      }
+
+      /* Outer Box Center */
+      .outer-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Inner Box Styling */
+      .inner-box {
+    width: 350px;
+    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.3); /* <-- made a little more visible */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+      /* Form Inputs */
+      .signup-body form p {
+        margin-bottom: 15px;
+      }
+
+      .signup-body form input,
+      .signup-body form select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Button */
+      .subbtn {
+  width: 90%; /* Not full 100%, little margin looks cleaner */
+  max-width: 300px; /* Limit the max width */
+  padding: 10px 0; /* Top-bottom 12px, left-right auto */
+  padding-bottom: 30px;
+  font-size: 1.1rem; /* Bigger but not huge text */
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: white;
+  font-weight: 600; /* Slightly heavier but not extra bold */
+  border: none;
+  border-radius: 12px; /* More rounded edges */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 20px auto; /* Center the button horizontally */
+  text-align: center;
+}
+
+
+
+
+      .subbtn:hover {
+        background: linear-gradient(to right, #4a00e0, #8e2de2);
+      }
+
+      /* Header Text */
+      header h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: rgba(0, 0, 0, 0.864);
+      }
+
+      /* Footer */
+      .signup-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #090101; /* <-- Dark text */
+}
+
+.signup-footer a {
+    color: #bd2612;
+    text-decoration: underline;
+}
+
+
+      /* Decorative Circles */
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        opacity: 0.3;
+        z-index: 0;
+      }
+
+      .c1 {
+        width: 150px;
+        height: 150px;
+        top: 20px;
+        left: 20px;
+      }
+
+      .c2 {
+        width: 250px;
+        height: 250px;
+        bottom: 30px;
+        right: 30px;
+      }
+    </style>
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/sweetalert.js"></script>
+    <script src="js/index.js"></script>
+    <title>Signup</title>
+  </head>
+  <body>
+    <div class="outer-box">
+      <div class="inner-box">
+        <header class="SIGNUP">
+          <h1>SIGNUP</h1>
+        </header>
+        <main class="signup-body">
+          <form id="signup-form">
+            <p>
+              <label for="username">Username</label>
+              <input type="text" id="username" required />
+            </p>
+            <p>
+              <label for="firstname">First Name</label>
+              <input type="text" id="firstname" required />
+            </p>
+            <p>
+              <label for="lastname">Last Name</label>
+              <input type="text" id="lastname" required />
+            </p>
+            <p>
+              <label for="email">Your Email</label>
+              <input type="email" id="email" required />
+            </p>
+            <p>
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="At least 8 characters"
+                required
+              />
+            </p>
+            <p>
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" required />
+            </p>
+            <p>
+              <label for="role">Select Role</label>
+              <select id="role" required>
+                <option value="">-- Select Role --</option>
+                <option value="ROLE_USER">USER</option>
+                <option value="ROLE_ADMIN">ADMIN</option>
+                <option value="ROLE_OWNER">OWNER</option>
+              </select>
+            </p>
+            <p>
+              <button class="subbtn" type="submit" id="submit">
+                Create Account
+              </button>
+            </p>
+          </form>
+        </main>
+        <footer class="signup-footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+            <p><a href="index.html">Back to home</a></p>
+        </footer>
+      </div>
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+    </div>
+  </body>
+    <script>
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value.trim();
+          const firstName = document.getElementById("firstname").value.trim();
+          const lastName = document.getElementById("lastname").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+          const phone = document.getElementById("phone").value.trim();
+          const role = document.getElementById("role").value;
+          const submitBtn = document.getElementById("submit");
+
+          // Validate username
+          const usernameRegex = /^[a-zA-Z0-9_]+$/;
+          if (!usernameRegex.test(username)) {
+            swal(
+              "Invalid Username",
+              "Username can only contain letters, numbers, and underscores.",
+              "error"
+            );
+            return;
+          }
+
+          // Validate email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            swal(
+              "Invalid Email",
+              "Please enter a valid email address!",
+              "error"
+            );
+            return;
+          }
+
+          // Validate phone number
+          const phoneRegex = /^[0-9]{10}$/;
+          if (!phoneRegex.test(phone)) {
+            swal(
+              "Invalid Phone",
+              "Please enter a valid 10-digit phone number.",
+              "error"
+            );
+            return;
+          }
+
+          // Validate role selection
+          if (!role) {
+            swal(
+              "Role Required",
+              "Please select a role before proceeding.",
+              "error"
+            );
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerText = "Processing...";
+
+          const payload = {
+            username,
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber: phone,
+            role,
+          };
+
+          try {
+            const response = await fetch("http://localhost:8086/auth/signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              localStorage.setItem("authToken", data.token || "");
+              localStorage.setItem("user", JSON.stringify(data.user || {}));
+
+              swal("Success!", "Account created successfully!", "success").then(
+                () => {
+                  const userRole = data.user?.role;
+
+                  if (userRole === "ROLE_OWNER") {
+                    localStorage.setItem("ownerId", data.user.id);
+                    window.location.href = "owner.html";
+                  } else if (userRole === "ROLE_ADMIN") {
+                    localStorage.setItem("adminId", data.user.id);
+                    window.location.href = "admin.html";
+                  } else {
+                    window.location.href = "home.html";
+                  }
+                }
+              );
+            } else {
+              swal("Signup Failed", data.message || "Unknown error", "error");
+            }
+          } catch (error) {
+            swal("Error", "Something went wrong. Please try again.", "error");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Create Account";
+          }
+        });
+    </script>
+  </body>
+</html>

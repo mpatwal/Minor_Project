@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PG Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: url("backg.jpeg") no-repeat center center/cover;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .background-overlay {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Dark overlay with 40% opacity */
+        z-index: 0;
+      }
+
+      .details-container {
+        background: #ffffffcc;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 800px;
+        margin: 50px auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .detail-item {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .site-footer {
+        background: linear-gradient(135deg, #dea0f4, #efd1f0);
+        color: rgb(4, 42, 96);
+        padding: 40px 0 20px;
+        font-family: "Poppins", sans-serif;
+        margin-top: 50px; /* 👈 Adds space between content and footer */
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+      }
+
+      .footer-about,
+      .footer-links,
+      .footer-contact {
+        flex: 1 1 250px;
+        margin: 20px;
+      }
+
+      .footer-about h3,
+      .footer-links h4,
+      .footer-contact h4 {
+        margin-bottom: 15px;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links ul li a {
+        text-decoration: none;
+        color: #7741f5;
+        transition: color 0.3s;
+      }
+
+      .footer-links ul li a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 15px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <body>
+      <!-- Back Button -->
+      <div style="text-align: center;">
+        <button onclick="history.back()" style="margin: 20px; padding: 10px 20px; font-size: 16px; border-radius: 8px; background-color: #e2e5e9; color: rgb(121, 52, 52); border: none; cursor: pointer;">
+          Back
+        </button>
+      </div>
+      
+    <div class="details-container">
+      <img
+        id="pg-image"
+        src=""
+        alt="PG Image"
+        style="width: 100%; max-width: 500px; border-radius: 10px"
+      />
+
+      <h1 id="pg-name"></h1>
+      <p id="pg-location"></p>
+      <p id="pg-occupancy"></p>
+      <p id="pg-price"></p>
+      <p id="pg-amenities"></p>
+    </div>
+
+    <!-- Footer HTML -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-about">
+          <h3>PG Accommodation</h3>
+          <p>Helping you find your perfect stay with comfort and trust.</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="signup.html">Signup</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="index.html">Back to Home</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p>Email: support@pgaccommodation.com</p>
+          <p>Phone: +91 9876543210</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 PG Accommodation | All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script>
+      // Function to get parameters from URL
+      function getParameterByName(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const url = window.location.href;
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      // Now get each value
+      const pgName = getParameterByName("name");
+      const pgLocation = getParameterByName("location");
+      const pgOccupancy = getParameterByName("occupancy");
+      const pgPrice = getParameterByName("price");
+      const pgAmenities = getParameterByName("amenities");
+      const pgImage = getParameterByName("image"); // 👈 Get image too
+
+      // Now display these values into your HTML
+      document.getElementById("pg-name").textContent = pgName;
+      document.getElementById("pg-location").textContent = pgLocation;
+      document.getElementById("pg-occupancy").textContent =
+        "Occupancy: " + pgOccupancy;
+      document.getElementById("pg-price").textContent =
+        "Price: ₹" + pgPrice + "/month";
+      document.getElementById("pg-amenities").textContent =
+        "Amenities: " + pgAmenities;
+      document.getElementById("pg-image").src = pgImage; // 👈 Set the image src
+    </script>
+  </body>
+</html>
