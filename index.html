@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/animate.css" />
+<<<<<<< HEAD
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -90,10 +91,13 @@
 </style>
 
         
+=======
+>>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
     <!--end css link-->
 </head>
 
 <body>
+<<<<<<< HEAD
     
     <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
         <div class="container-fluid">
@@ -124,6 +128,32 @@
     
     
     
+=======
+    <nav class="navbar navbar-expand-md bg-info shadow-lg fixed-top navbar-light">
+        <div class="container-fluid">
+            <img src="pg.webp" class="rounded-circle" width="70" alt="Logo" />
+            <a href="#" class="mx-4 text-white navbar-brand"> PG Accommodation </a>
+    
+            <!-- Dropdown Menu -->
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="explore.html">Explore</a></li>
+                        <li><a class="dropdown-item" href="#">Occupation</a></li>
+                        <li><a class="dropdown-item" href="#">Budget</a></li>
+                        <li><a class="dropdown-item" href="amenities.html">Amenities</a></li>
+                        <li><a class="dropdown-item" href="signup.html">Signup</a></li>
+                        <li><a class="dropdown-item" href="login.html">Login</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div> <!-- This closes container-fluid properly -->
+    </nav>
+    </nav>
+>>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
 
     <div class="container mt-5">
         <div class="row">
@@ -155,9 +185,12 @@
                 <div class="carousel-item">
                     <img src="3pg.webp" class="d-block w-100" alt="Slide 3" />
                 </div>
+<<<<<<< HEAD
                 <div class="carousel-item">
                     <img src="np4.jpg" class="d-block w-100" alt="Slide 4" />
                 </div>
+=======
+>>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                 data-bs-slide="prev">
@@ -168,6 +201,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
         </div>
+<<<<<<< HEAD
         <br><br> 
         <br /><br />
 
@@ -347,6 +381,189 @@ pgCards.forEach(card => {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+=======
+
+        <br><br>
+        <div class="popup" id="popup-msg">Selection Saved!</div>
+
+    <div class="filter-bar">
+         <!-- Locality -->
+        <div class="filter-bar">
+            <div class="dropdown-container">
+                <div class="dropdown-button" onclick="toggleDropdown('locality-dropdown', this)">Locality ▾</div>
+                <div class="dropdown" id="locality-dropdown">
+                    <div class="dropdown-options">
+                        <div class="option" onclick="selectOption(this, 'locality')">Laxmi Nagar</div>
+                        <div class="option" onclick="selectOption(this, 'locality')">Kamla Nagar</div>
+                        <div class="option" onclick="selectOption(this, 'locality')">GTB Nagar</div>
+                        <div class="option" onclick="selectOption(this, 'locality')">Saket</div>
+                        <div class="option" onclick="selectOption(this, 'locality')">Mukherji Nagar</div>
+                        <div class="option" onclick="selectOption(this, 'locality')">Karol Bagh</div>
+                    </div>
+                    <div class="footer">
+                        <div class="clear-btn" onclick="clearSelection('locality')">Clear</div>
+                        <button class="save-btn" onclick="saveSelection('locality')">Save</button>
+                        
+                    </div>
+                </div>
+            </div>
+    <!-- Budget -->
+            <div class="dropdown-container">
+                <div class="dropdown-button" onclick="toggleDropdown('budget-dropdown', this)">Budget ▾</div>
+                <div class="dropdown" id="budget-dropdown">
+                    <div class="dropdown-options">
+                        <div class="option" onclick="selectOption(this, 'budget')">₹5,000 - ₹10,000</div>
+                        <div class="option" onclick="selectOption(this, 'budget')">₹10,000 - ₹15,000</div>
+                        <div class="option" onclick="selectOption(this, 'budget')">₹15,000 - ₹20,000</div>
+                        <div class="option" onclick="selectOption(this, 'budget')">₹20,000 - ₹25,000</div>
+                    </div>
+                    <div class="footer">
+                        <div class="clear-btn" onclick="clearSelection('budget')">Clear</div>
+                        <button class="save-btn" onclick="saveSelection('budget')">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="results" id="results"></div>
+        <!-- Gender -->
+        <div class="dropdown-container">
+            <div class="dropdown-button" onclick="toggleDropdown('gender-dropdown', this)">Gender ▾</div>
+            <div class="dropdown" id="gender-dropdown">
+                <div class="dropdown-options">
+                    <div class="option" onclick="selectOption(this, 'gender')">Male</div>
+                    <div class="option" onclick="selectOption(this, 'gender')">Female</div>
+                    <div class="option" onclick="selectOption(this, 'gender')">Unisex</div>
+                </div>
+                <div class="footer">
+                    <div class="clear-btn" onclick="clearSelection('gender')">Clear</div>
+                    <button class="save-btn" onclick="saveSelection('gender')">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amenities -->
+        <div class="dropdown-container">
+            <div class="dropdown-button" onclick="toggleDropdown('amenities-dropdown', this)">Amenities ▾</div>
+            <div class="dropdown" id="amenities-dropdown">
+                <div class="dropdown-options">
+                    <div class="option" onclick="selectOption(this, 'amenities')">WiFi</div>
+                    <div class="option" onclick="selectOption(this, 'amenities')">Parking</div>
+                    <div class="option" onclick="selectOption(this, 'amenities')">Gym</div>
+                </div>
+                <div class="footer">
+                    <div class="clear-btn" onclick="clearSelection('amenities')">Clear</div>
+                    <button class="save-btn" onclick="saveSelection('amenities')">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Occupancy -->
+        <div class="dropdown-container">
+            <div class="dropdown-button" onclick="toggleDropdown('occupancy-dropdown', this)">Occupancy ▾</div>
+            <div class="dropdown" id="occupancy-dropdown">
+                <div class="dropdown-options">
+                    <div class="option" onclick="selectOption(this, 'occupancy')">Single</div>
+                    <div class="option" onclick="selectOption(this, 'occupancy')">Double</div>
+                    <div class="option" onclick="selectOption(this, 'occupancy')">Triple</div>
+                </div>
+                <div class="footer">
+                    <div class="clear-btn" onclick="clearSelection('occupancy')">Clear</div>
+                    <button class="save-btn" onclick="saveSelection('occupancy')">Save</button>
+                </div>
+            </div>
+        </div>
+        <button class="save-btn" onclick="applyFilters()">Apply</button>
+    </div>
+
+        <br /><br />
+        <div class="pg-card">
+            <img src="pg_1.webp" alt="PG Room" class="pg-image" />
+            <div class="pg-details">
+                <div class="pg-title"><a href="pglist.html">Nestify PG</a></div>
+                <div class="pg-location">Karol Bagh, 0.2 km from Metro Station</div>
+                <div class="pg-tags">
+                    <div class="tag">Seperate Almirah</div>
+                    <div class="tag">AC</div>
+                    <div class="tag">Single</div>
+                    <div class="tag">Double</div>
+                </div>
+                <div class="pg-price">Starts from ₹16,899/mo*</div>
+                <div class="pg-buttons">
+                    <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                    <a href="request.html"><button class="btn btn-secondary">REQUEST A CALLBACK</button></a>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="pg-card">
+            <img src="pg_2.webp" alt="PG Room" class="pg-image" />
+            <div class="pg-details">
+                <div class="pg-title"><a href="pglist.html">Cozy Corner</a></div>
+                <div class="pg-location">North Campus, 0.1 km from Kamla Market</div>
+                <div class="pg-tags">
+                    <div class="tag">Attached Balcony</div>
+                    <div class="tag">AC</div>
+                    <div class="tag">Double</div>
+                    <div class="tag">Triple</div>
+                </div>
+                <div class="pg-price">Starts from ₹16,899/mo*</div>
+                <div class="pg-buttons">
+                    <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                    <a href="request.html"><button class="btn btn-secondary">REQUEST A CALLBACK</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="pg-card">
+            <img src="pg_3.webp" alt="PG Room" class="pg-image" />
+            <div class="pg-details">
+                <div class="pg-title"><a href="pglist.html">HavenHub</a></div>
+                <div class="pg-location">North Campus, 0.1 km from Kamla Market</div>
+                <div class="pg-tags">
+                    <div class="tag">Attached Balcony</div>
+                    <div class="tag">AC</div>
+                    <div class="tag">Double</div>
+                    <div class="tag">Triple</div>
+                </div>
+                <div class="pg-price">Starts from ₹16,899/mo*</div>
+                <div class="pg-buttons">
+                    <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                    <a href="request.html"><button class="btn btn-secondary">REQUEST A CALLBACK</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="pg-card">
+            <img src="pg_5.jpeg" alt="PG Room" class="pg-image" />
+            <div class="pg-details">
+                <div class="pg-title"><a href="pglist.html">StayEase PG</a></div>
+                <div class="pg-location">North Campus, 0.1 km from Kamla Market</div>
+                <div class="pg-tags">
+                    <div class="tag">Attached Balcony</div>
+                    <div class="tag">AC</div>
+                    <div class="tag">Double</div>
+                    <div class="tag">Triple</div>
+                </div>
+                <div class="pg-price">Starts from ₹16,899/mo*</div>
+                <div class="pg-buttons">
+                    <a href="schedule_visit.html"><button class="btn-primary">SCHEDULE A VISIT</button></a>
+                    <a href="request.html"><button class="btn btn-secondary">REQUEST A CALLBACK</button></a>
+                </div>
+            </div>
+        </div>
+        <!-- 7. Footer -->
+        <footer>
+            <div class="social-links">
+                <p>© 2025 RentHive. All rights reserved.</p>
+                <a href="#"><img src="facebook.png" class="imgl" /></a>
+                <a href="#"><img src="social.png" class="imgl" /></a>
+                <a href="#"><img src="twitter.png" class="imgl" /></a>
+            </div>
+        </footer>
+        <!--start js link-->
+        <script src="js/index.js"></script>
+        <!--end js link-->
+        <!--start js link-->
+>>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
         <script src="js/bootstrap.js"></script>
         <script src="js/sweetalert.js"></script>
         <!--end js link-->
