@@ -57,7 +57,8 @@
         transform: rotate(90deg) scale(1.1);
         background: #d43f4c;
       }
-      input {
+      input,
+      select {
         width: 100%;
         padding: 12px;
         margin: 12px 0;
@@ -66,7 +67,8 @@
         font-size: 16px;
         transition: 0.3s;
       }
-      input:focus {
+      input:focus,
+      select:focus {
         border-color: #1e88e5;
         outline: none;
         box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
@@ -106,72 +108,199 @@
       .back-btn:hover {
         background: linear-gradient(90deg, #505050, #808080);
       }
+      
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .modal .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .modal .close:hover,
+      .modal .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <div class="form-container">
       <button class="close-btn" onclick="closePage()">&times;</button>
       <h2>Update PG</h2>
-      <input type="text" id="pgName" placeholder="Enter PG Name" />
-      <input type="text" id="pgLocation" placeholder="Enter PG Location" />
-      <button onclick="updatePG()">Update PG</button>
+      
+      <!-- Dropdown for PGs -->
+      <select id="pgSelect">
+        <option value="">Select a PG to update</option>
+      </select>
+      <button onclick="openModal()">Update PG</button>
+      
+      <!-- Modal for updating PG -->
+      <div id="updateModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h3>Update PG Details</h3>
+          <input type="text" id="pgName" placeholder="Enter PG Name" />
+          <input type="text" id="pgLocation" placeholder="Enter PG Location" />
+          <button onclick="submitUpdatePG()">Submit</button>
+        </div>
+      </div>
+
       <button class="back-btn" onclick="goBack()">Exit</button>
       <p id="message"></p>
     </div>
 
     <script>
-      function updatePG() {
-        let pgName = document.getElementById("pgName").value;
-        let pgLocation = document.getElementById("pgLocation").value;
+      // Fetch PGs for logged-in owner and populate dropdown
+      window.onload = function () {
+        let ownerId = localStorage.getItem("ownerId");
+        let authToken = localStorage.getItem("authToken");
 
-        if (pgName === "" || pgLocation === "") {
-          document.getElementById("message").innerText = "Please fill all fields!";
-          return;
-        }
-
-        // Get the token from localStorage (or use session storage, or cookie)
-        let token = localStorage.getItem("authToken"); // Make sure the token is stored during login
-
-        if (!token) {
+        if (!ownerId || !authToken) {
           document.getElementById("message").innerText = "Please log in first!";
           return;
         }
 
-        let ownerId = 1; // Replace with dynamic ownerId (you can get this from the logged-in user context)
-        let pgId = 69; // Replace with the PG id you want to update
+        fetch(`http://localhost:8086/pg/owner/${ownerId}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${authToken}`,
+          },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          const pgSelect = document.getElementById("pgSelect");
+          data.forEach((pg) => {
+            const option = document.createElement("option");
+            option.value = pg.id;
+            option.textContent = `${pg.name} - ${pg.location}`;
+            pgSelect.appendChild(option);
+          });
+        })
+        .catch((error) => {
+          document.getElementById("message").innerText = "Error fetching PGs!";
+          console.error("Error:", error);
+        });
+      };
 
-        // Prepare PG data
+      // Open the modal when "Update PG" is clicked
+      function openModal() {
+        const pgId = document.getElementById("pgSelect").value;
+        if (!pgId) {
+          document.getElementById("message").innerText = "Please select a PG to update!";
+          return;
+        }
+        document.getElementById("updateModal").style.display = "flex";
+        
+        // Load the selected PG's details into the modal inputs
+        let authToken = localStorage.getItem("authToken");
+        fetch(`http://localhost:8086/pg/update/${localStorage.getItem("ownerId")}/${pgId}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${authToken}`,
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log("PG Details:", data); // Log the fetched data
+          document.getElementById("pgName").value = data.name;
+          document.getElementById("pgLocation").value = data.location;
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          document.getElementById("message").innerText = "Error fetching PG details!";
+        });
+      }
+
+      // Close the modal
+      function closeModal() {
+        document.getElementById("updateModal").style.display = "none";
+      }
+
+      // Submit the updated PG details
+      function submitUpdatePG() {
+        let pgId = document.getElementById("pgSelect").value;
+        let pgName = document.getElementById("pgName").value;
+        let pgLocation = document.getElementById("pgLocation").value;
+
+        console.log("Updated PG Name:", pgName);
+        console.log("Updated PG Location:", pgLocation);
+
+        if (!pgName || !pgLocation) {
+          document.getElementById("message").innerText = "Please fill all fields!";
+          return;
+        }
+
+        let ownerId = localStorage.getItem("ownerId");
+        let authToken = localStorage.getItem("authToken");
+
+        if (!authToken) {
+          document.getElementById("message").innerText = "Authorization token is missing.";
+          return;
+        }
+
         let pgData = {
           name: pgName,
           location: pgLocation,
         };
 
-        // Make API call to update PG
         fetch(`http://localhost:8086/pg/update/${ownerId}/${pgId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${authToken}`,
           },
           body: JSON.stringify(pgData),
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
           document.getElementById("message").innerText = "PG updated successfully!";
+          closeModal();
         })
         .catch(error => {
-          document.getElementById("message").innerText = "Error updating PG!";
+          if (error.message.includes('403')) {
+            document.getElementById("message").innerText = "You don't have permission to update this PG.";
+          } else {
+            document.getElementById("message").innerText = `Error: ${error.message}`;
+          }
           console.error("Error:", error);
         });
       }
-
       function closePage() {
-        window.location.href = "owner.html";
-      }
-
+      window.location.href = "owner.html";
+    }
+      // Exit button functionality
       function goBack() {
         window.location.href = "index.html";
       }
+
     </script>
   </body>
 </html>

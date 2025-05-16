@@ -251,36 +251,13 @@
   <body>
     <div class="logo-profile">
       <nav>
-          <div class="log">PG Accommodation</div>
-          <ul>
-              <a href="#" class="btn" onclick="togglemenu()">Menu</a> </ul>
-              <div class="sub-menu-wrap" id="subMenu">
-                  <div class="sub-menu">
-                      <a href="signup.html" class="sub-menu-link">
-                          <img src="#" alt="">
-                          <p>Sign-up/Login</p>
-                          <span></span>
-                      </a>
-                      
-                    <a href="amenities.html" class="sub-menu-link">
-            
-                      <p>Amenities</p>
-                      <span></span>
-                  </a>
-                  <a href="index.html" class="sub-menu-link">
-                          
-                          <button>Back To Home</button>
-                          
-                      </a>
-                      </div>
-                  </div>
-              </div>
-          </nav>
-      </div>
+          <div class="log">PG Accommodation</div>                
+      </nav>
+    </div>
      
 
     <div class="container mt-5">
-      <h2 class="text-center mb-4">Explore PG Accommodations 🔍📌🧭🚀📍</h2>
+      <h2 class="text-center mb-4">Explore PG Accommodations </h2>
 
       <!-- Search Bar -->
       <div class="search-container mb-4">
@@ -498,9 +475,32 @@ pgCards.forEach(card => {
 
   titleLink.href = url;
 });
+  function searchPGs() {
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const pgCards = document.querySelectorAll(".pg-card");
 
+    pgCards.forEach(card => {
+      const location = card.dataset.location.toLowerCase();
+      card.parentElement.style.display = location.includes(searchTerm) ? "block" : "none";
+    });
+  }
+
+  function applyFilters() {
+    const budget = document.getElementById("budgetFilter").value;
+    const gender = document.getElementById("genderFilter").value;
+    const pgCards = document.querySelectorAll(".pg-card");
+
+    pgCards.forEach(card => {
+      const price = parseInt(card.dataset.price.replace(/[^0-9]/g, ""));
+      const inBudget = !budget || (
+        price >= parseInt(budget.split('-')[0]) &&
+        price <= parseInt(budget.split('-')[1])
+      );
+
+      const matchesGender = !gender || card.dataset.occupancy.includes(gender);
+      card.parentElement.style.display = (inBudget && matchesGender) ? "block" : "none";
+    });
+  }
 </script>
-   
-
   </body>
 </html>

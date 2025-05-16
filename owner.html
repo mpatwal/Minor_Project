@@ -1,160 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Owner Dashboard</title>
     <style>
-      body {
-        font-family: "Poppins", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(
-          135deg,
-          #00bfa5,
-          #004d40
-        ); /* Updated background */
-        color: white;
-        animation: fadeIn 1s ease-in-out;
-      }
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      .class-box {
-        width: 380px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        padding: 20px;
-        position: relative;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-      }
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #004d40, #00796b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  animation: fadeInBody 1s ease-in-out;
+}
 
-      .class-box:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-      }
+@keyframes fadeInBody {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
 
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #ff4b5c;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.3s;
-      }
+/* Animated Background Circles */
+.bg-circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
 
-      .close-btn:hover {
-        background: #28a745;
-        transform: rotate(90deg) scale(1.1);
-      }
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  animation: float 12s ease-in-out infinite;
+}
 
-      .class-box h2 {
-        background: linear-gradient(90deg, #004d40, #00695c);
-        color: white;
-        margin: 0;
-        padding: 15px;
-        border-radius: 10px 10px 0 0;
-        font-size: 24px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-      }
+.circle:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
 
-      .attributes {
-        margin-top: 15px;
-        padding: 10px;
-        font-size: 16px;
-      }
+.circle:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 60%;
+  animation-delay: 3s;
+}
 
-      .attributes p {
-        margin: 10px 0;
-      }
+.circle:nth-child(3) {
+  width: 250px;
+  height: 250px;
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 6s;
+}
 
-      .methods button {
-        display: block;
-        width: 100%;
-        margin: 12px 0;
-        padding: 15px;
-        background: linear-gradient(90deg, #ff6f61, #d84315);
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
 
-      .methods button:hover {
-        background: linear-gradient(90deg, #28a745, #34d058);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
-      }
+.class-box {
+  position: relative;
+  width: 400px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 30px 25px;
+  z-index: 2;
+  animation: slideIn 1s ease;
+  text-align: center;
+}
 
-      @media (max-width: 768px) {
-        .class-box {
-          width: 90%;
-          padding: 15px;
-        }
+@keyframes slideIn {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
-        .methods button {
-          font-size: 14px;
-          padding: 12px;
-        }
-      }
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ff4b5c;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  background: #28a745;
+  transform: rotate(90deg) scale(1.1);
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  padding: 12px 0;
+  border-radius: 10px;
+  background: linear-gradient(to right, #004d40, #00796b);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.attributes p {
+  font-size: 16px;
+  margin: 12px 0;
+}
+
+.methods button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  background: linear-gradient(90deg, #ff6f61, #d84315);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.methods button:hover {
+  background: linear-gradient(90deg, #28a745, #34d058);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .class-box {
+    width: 90%;
+    padding: 20px;
+  }
+}
     </style>
   </head>
   <body>
+    <div class="bg-circles">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
     <div class="class-box">
       <button class="close-btn" onclick="goBack()">&times;</button>
       <h2>OWNER</h2>
       <div class="attributes">
-        <p><strong>o_id:</strong> <span id="o_id"></span></p>
-        <p>
-          <strong>properties_list:</strong>
-          <span id="properties_list">Loading...</span>
-        </p>
+        <p><strong>o_id:</strong> <span id="o_id">Loading...</span></p>
       </div>
       <div class="methods">
         <button onclick="confirmAndGo('add_pg.html')">add_PG()</button>
-        <button
-          onclick="confirmAndGo('update_pg.html', 'Confirm to update PG details...!!!')"
-        >
-          update_PG()
-        </button>
-        <button
-          onclick="confirmAndGo('delete_pg.html', 'Confirm for Deleting PG...???')"
-        >
-          delete_PG()
-        </button>
-        <button
-          onclick="confirmAndGo('view_booking.html', 'Viewing bookings...')"
-        >
-          view_Booking()
-        </button>
+        <button onclick="confirmAndGo('update_pg.html', 'Confirm to update PG details...!!!')">update_PG()</button>
+        <button onclick="confirmAndGo('delete_pg.html', 'Confirm for Deleting PG...???')">delete_PG()</button>
+        <button onclick="confirmAndGo('view_booking.html', 'Viewing bookings...')">view_Booking()</button>
       </div>
     </div>
 
@@ -164,17 +186,15 @@
       }
 
       function confirmAndGo(url, message = null) {
-        if (message) {
-          alert(message);
-        }
+        if (message) alert(message);
         window.location.href = url;
       }
+
       document.addEventListener("DOMContentLoaded", function () {
         const ownerId = localStorage.getItem("ownerId");
         const pgListSpan = document.getElementById("properties_list");
 
-        document.getElementById("o_id").textContent =
-          ownerId || "Not Logged In";
+        document.getElementById("o_id").textContent = ownerId || "Not Logged In";
 
         if (ownerId) {
           fetch(`http://localhost:8086/pg/view/${ownerId}`, {
@@ -200,182 +220,4 @@
       });
     </script>
   </body>
-=======
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Owner Dashboard</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #00bfa5, #004d40); /* Updated background */
-      color: white;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .class-box {
-      width: 380px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      padding: 20px;
-      position: relative;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    }
-
-    .class-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #ff4b5c;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: 0.3s;
-    }
-
-    .close-btn:hover {
-      background: #28a745;
-      transform: rotate(90deg) scale(1.1);
-    }
-
-    .class-box h2 {
-      background: linear-gradient(90deg, #004d40, #00695c);
-      color: white;
-      margin: 0;
-      padding: 15px;
-      border-radius: 10px 10px 0 0;
-      font-size: 24px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    }
-
-    .attributes {
-      margin-top: 15px;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    .attributes p {
-      margin: 10px 0;
-    }
-
-    .methods button {
-      display: block;
-      width: 100%;
-      margin: 12px 0;
-      padding: 15px;
-      background: linear-gradient(90deg, #ff6f61, #d84315);
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .methods button:hover {
-      background: linear-gradient(90deg, #28a745, #34d058);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
-    }
-
-    @media (max-width: 768px) {
-      .class-box {
-        width: 90%;
-        padding: 15px;
-      }
-
-      .methods button {
-        font-size: 14px;
-        padding: 12px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="class-box">
-    <button class="close-btn" onclick="goBack()">&times;</button>
-    <h2>OWNER</h2>
-    <div class="attributes">
-      <p><strong>o_id:</strong> <span id="o_id"></span></p>
-      <p><strong>properties_list:</strong> <span id="properties_list">Loading...</span></p>
-    </div>
-    <div class="methods">
-      <button onclick="confirmAndGo('add_pg.html')">add_PG()</button>
-      <button onclick="confirmAndGo('update_pg.html', 'Confirm to update PG details...!!!')">update_PG()</button>
-      <button onclick="confirmAndGo('delete_pg.html', 'Confirm for Deleting PG...???')">delete_PG()</button>
-      <button onclick="confirmAndGo('view_booking.html', 'Viewing bookings...')">view_Booking()</button>
-    </div>
-  </div>
-
-  <script>
-    function goBack() {
-      window.location.href = "index.html";
-    }
-
-    function confirmAndGo(url, message = null) {
-      if (message) {
-        alert(message);
-      }
-      window.location.href = url;
-    }
-    document.addEventListener("DOMContentLoaded", function () {
-       const ownerId = localStorage.getItem("ownerId");
-       const pgListSpan = document.getElementById("properties_list");
-
-       document.getElementById("o_id").textContent = ownerId || "Not Logged In";
-
-       if (ownerId) {
-        fetch(`http://localhost:8086/pg/view/${ownerId}`, {
-         headers: {
-        'Authorization': `Bearer ${localStorage.getItem("authToken")}`
-       }
-      })
-      .then(res => res.json())
-      .then(data => {
-      if (Array.isArray(data) && data.length > 0) {
-        pgListSpan.textContent = data.map(pg => pg.name).join(", ");
-      } else {
-        pgListSpan.textContent = "No PGs found.";
-      }
-    })
-    .catch(error => {
-      pgListSpan.textContent = "Error fetching PGs.";
-      console.error(error);
-    });
-  } else {
-    pgListSpan.textContent = "Owner not logged in.";
-    }
-  });
-
-  </script>
-</body>
->>>>>>> 7007b99252fdc914f5283885e77e860d1d08f8b7
 </html>
